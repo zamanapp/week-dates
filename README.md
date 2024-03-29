@@ -1,4 +1,4 @@
-# pkg-placeholder
+# week-dates
 
 [![npm version][npm-version-src]][npm-version-href]
 [![npm downloads][npm-downloads-src]][npm-downloads-href]
@@ -6,32 +6,31 @@
 [![JSDocs][jsdocs-src]][jsdocs-href]
 [![License][license-src]][license-href]
 
-_description_
+Utilities for working with week dates according ISO 8601 (ISO week date) and [Hijri week calendars](https://github.com/khawarizmus/hijri-week-calendar)  (Hijri week date) using Temporal.
 
-> **Note**:
-> Replace `pkg-placeholder`, `_description_` and `antfu` globally to use this template.
-
-## Sponsors
-
-<p align="center">
-  <a href="https://cdn.jsdelivr.net/gh/antfu/static/sponsors.svg">
-    <img src='https://cdn.jsdelivr.net/gh/antfu/static/sponsors.svg'/>
-  </a>
-</p>
+Features:
+- Offer a new PlainWeekDate class to represent a week date
+- Convert any gregorian date to and from an ISO week date
+- Convert any Hijri date to and from a Hijri week date
+- Convert between supported calendars (Gregorian, ISO week, Hijri, Hijri week)
+- Support custom week start day for both ISO week date and Hijri week date
+- Format dates in ISO week date representation and Hijri week date representation
+- Parse dates in ISO week representation and Hijri week date representation
+- Offer custom Temporal calendars for both ISO 8601 and Hijri week calendars for easy integration with Temporal
 
 ## License
 
-[MIT](./LICENSE) License © 2023-PRESENT [Anthony Fu](https://github.com/antfu)
+[MIT](./LICENSE) License © 2023-PRESENT [Zaman](https://github.com/zamanapp)
 
 <!-- Badges -->
 
-[npm-version-src]: https://img.shields.io/npm/v/pkg-placeholder?style=flat&colorA=080f12&colorB=1fa669
-[npm-version-href]: https://npmjs.com/package/pkg-placeholder
-[npm-downloads-src]: https://img.shields.io/npm/dm/pkg-placeholder?style=flat&colorA=080f12&colorB=1fa669
-[npm-downloads-href]: https://npmjs.com/package/pkg-placeholder
-[bundle-src]: https://img.shields.io/bundlephobia/minzip/pkg-placeholder?style=flat&colorA=080f12&colorB=1fa669&label=minzip
-[bundle-href]: https://bundlephobia.com/result?p=pkg-placeholder
-[license-src]: https://img.shields.io/github/license/antfu/pkg-placeholder.svg?style=flat&colorA=080f12&colorB=1fa669
-[license-href]: https://github.com/antfu/pkg-placeholder/blob/main/LICENSE
+[npm-version-src]: https://img.shields.io/npm/v/week-dates?style=flat&colorA=080f12&colorB=1fa669
+[npm-version-href]: https://npmjs.com/package/week-dates
+[npm-downloads-src]: https://img.shields.io/npm/dm/week-dates?style=flat&colorA=080f12&colorB=1fa669
+[npm-downloads-href]: https://npmjs.com/package/week-dates
+[bundle-src]: https://img.shields.io/bundlephobia/minzip/week-dates?style=flat&colorA=080f12&colorB=1fa669&label=minzip
+[bundle-href]: https://bundlephobia.com/result?p=week-dates
+[license-src]: https://img.shields.io/github/license/zamanapp/week-dates.svg?style=flat&colorA=080f12&colorB=1fa669
+[license-href]: https://github.com/zamanapp/week-dates/blob/main/LICENSE
 [jsdocs-src]: https://img.shields.io/badge/jsdocs-reference-080f12?style=flat&colorA=080f12&colorB=1fa669
-[jsdocs-href]: https://www.jsdocs.io/package/pkg-placeholder
+[jsdocs-href]: https://www.jsdocs.io/package/week-dates
