@@ -248,6 +248,88 @@ describe('weekdays tests should pass', () => {
     expect(ISODayToHWCDay(5, HWCWeekDays.Sunday, ISOWeekDays.Wednesday)).toBe(1)
     expect(ISODayToHWCDay(6, HWCWeekDays.Sunday, ISOWeekDays.Wednesday)).toBe(2)
     expect(ISODayToHWCDay(7, HWCWeekDays.Sunday, ISOWeekDays.Wednesday)).toBe(3)
+    // ISO: TH=1,FR=2,SA=3,SU=4,MO=5,TU=6,WE=7
+    // HWC: SU=1,MO=2,TU=3,WE=4,TH=5,FR=6,SA=7
+    expect(ISODayToHWCDay(1, HWCWeekDays.Sunday, ISOWeekDays.Thursday)).toBe(5)
+    expect(ISODayToHWCDay(2, HWCWeekDays.Sunday, ISOWeekDays.Thursday)).toBe(6)
+    expect(ISODayToHWCDay(3, HWCWeekDays.Sunday, ISOWeekDays.Thursday)).toBe(7)
+    expect(ISODayToHWCDay(4, HWCWeekDays.Sunday, ISOWeekDays.Thursday)).toBe(1)
+    expect(ISODayToHWCDay(5, HWCWeekDays.Sunday, ISOWeekDays.Thursday)).toBe(2)
+    expect(ISODayToHWCDay(6, HWCWeekDays.Sunday, ISOWeekDays.Thursday)).toBe(3)
+    expect(ISODayToHWCDay(7, HWCWeekDays.Sunday, ISOWeekDays.Thursday)).toBe(4)
+    // ISO: FR=1,SA=2,SU=3,MO=4,TU=5,WE=6,TH=7
+    // HWC: SU=1,MO=2,TU=3,WE=4,TH=5,FR=6,SA=7
+    expect(ISODayToHWCDay(1, HWCWeekDays.Sunday, ISOWeekDays.Friday)).toBe(6)
+    expect(ISODayToHWCDay(2, HWCWeekDays.Sunday, ISOWeekDays.Friday)).toBe(7)
+    expect(ISODayToHWCDay(3, HWCWeekDays.Sunday, ISOWeekDays.Friday)).toBe(1)
+    expect(ISODayToHWCDay(4, HWCWeekDays.Sunday, ISOWeekDays.Friday)).toBe(2)
+    expect(ISODayToHWCDay(5, HWCWeekDays.Sunday, ISOWeekDays.Friday)).toBe(3)
+    expect(ISODayToHWCDay(6, HWCWeekDays.Sunday, ISOWeekDays.Friday)).toBe(4)
+    expect(ISODayToHWCDay(7, HWCWeekDays.Sunday, ISOWeekDays.Friday)).toBe(5)
+    // ISO: SA=1,SU=2,MO=3,TU=4,WE=5,TH=6,FR=7
+    // HWC: SU=1,MO=2,TU=3,WE=4,TH=5,FR=6,SA=7
+    expect(ISODayToHWCDay(1, HWCWeekDays.Sunday, ISOWeekDays.Saturday)).toBe(7)
+    expect(ISODayToHWCDay(2, HWCWeekDays.Sunday, ISOWeekDays.Saturday)).toBe(1)
+    expect(ISODayToHWCDay(3, HWCWeekDays.Sunday, ISOWeekDays.Saturday)).toBe(2)
+    expect(ISODayToHWCDay(4, HWCWeekDays.Sunday, ISOWeekDays.Saturday)).toBe(3)
+    expect(ISODayToHWCDay(5, HWCWeekDays.Sunday, ISOWeekDays.Saturday)).toBe(4)
+    expect(ISODayToHWCDay(6, HWCWeekDays.Sunday, ISOWeekDays.Saturday)).toBe(5)
+    expect(ISODayToHWCDay(7, HWCWeekDays.Sunday, ISOWeekDays.Saturday)).toBe(6)
+    // ISO: SU=1,MO=2,TU=3,WE=4,TH=5,FR=6,SA=7
+    // HWC: SU=1,MO=2,TU=3,WE=4,TH=5,FR=6,SA=7
+    expect(ISODayToHWCDay(1, HWCWeekDays.Sunday, ISOWeekDays.Sunday)).toBe(1)
+    expect(ISODayToHWCDay(2, HWCWeekDays.Sunday, ISOWeekDays.Sunday)).toBe(2)
+    expect(ISODayToHWCDay(3, HWCWeekDays.Sunday, ISOWeekDays.Sunday)).toBe(3)
+    expect(ISODayToHWCDay(4, HWCWeekDays.Sunday, ISOWeekDays.Sunday)).toBe(4)
+    expect(ISODayToHWCDay(5, HWCWeekDays.Sunday, ISOWeekDays.Sunday)).toBe(5)
+    expect(ISODayToHWCDay(6, HWCWeekDays.Sunday, ISOWeekDays.Sunday)).toBe(6)
+    expect(ISODayToHWCDay(7, HWCWeekDays.Sunday, ISOWeekDays.Sunday)).toBe(7)
+
+    // ISO: MO=1,TU=2,WE=3,TH=4,FR=5,SA=6,SU=7
+    // HWC: MO=1,TU=2,WE=3,TH=4,FR=5,SA=6,SU=7
+    expect(ISODayToHWCDay(1, HWCWeekDays.Monday)).toBe(1)
+    expect(ISODayToHWCDay(2, HWCWeekDays.Monday)).toBe(2)
+    expect(ISODayToHWCDay(3, HWCWeekDays.Monday)).toBe(3)
+    expect(ISODayToHWCDay(4, HWCWeekDays.Monday)).toBe(4)
+    expect(ISODayToHWCDay(5, HWCWeekDays.Monday)).toBe(5)
+    expect(ISODayToHWCDay(6, HWCWeekDays.Monday)).toBe(6)
+    expect(ISODayToHWCDay(7, HWCWeekDays.Monday)).toBe(7)
+    // ISO: MO=1,TU=2,WE=3,TH=4,FR=5,SA=6,SU=7
+    // HWC: TU=1,WE=2,TH=3,FR=4,SA=5,SU=6,MO=7
+    expect(ISODayToHWCDay(1, HWCWeekDays.Tuesday)).toBe(7)
+    expect(ISODayToHWCDay(2, HWCWeekDays.Tuesday)).toBe(1)
+    expect(ISODayToHWCDay(3, HWCWeekDays.Tuesday)).toBe(2)
+    expect(ISODayToHWCDay(4, HWCWeekDays.Tuesday)).toBe(3)
+    expect(ISODayToHWCDay(5, HWCWeekDays.Tuesday)).toBe(4)
+    expect(ISODayToHWCDay(6, HWCWeekDays.Tuesday)).toBe(5)
+    expect(ISODayToHWCDay(7, HWCWeekDays.Tuesday)).toBe(6)
+    // ISO: MO=1,TU=2,WE=3,TH=4,FR=5,SA=6,SU=7
+    // HWC: WE=1,TH=2,FR=3,SA=4,SU=5,MO=6,TU=7
+    expect(ISODayToHWCDay(1, HWCWeekDays.Wednesday)).toBe(6)
+    expect(ISODayToHWCDay(2, HWCWeekDays.Wednesday)).toBe(7)
+    expect(ISODayToHWCDay(3, HWCWeekDays.Wednesday)).toBe(1)
+    expect(ISODayToHWCDay(4, HWCWeekDays.Wednesday)).toBe(2)
+    expect(ISODayToHWCDay(5, HWCWeekDays.Wednesday)).toBe(3)
+    expect(ISODayToHWCDay(6, HWCWeekDays.Wednesday)).toBe(4)
+    expect(ISODayToHWCDay(7, HWCWeekDays.Wednesday)).toBe(5)
+    // ISO: MO=1,TU=2,WE=3,TH=4,FR=5,SA=6,SU=7
+    // HWC: TH=1,FR=2,SA=3,SU=4,MO=5,TU=6,WE=7
+    expect(ISODayToHWCDay(1, HWCWeekDays.Thursday)).toBe(5)
+    expect(ISODayToHWCDay(2, HWCWeekDays.Thursday)).toBe(6)
+    expect(ISODayToHWCDay(3, HWCWeekDays.Thursday)).toBe(7)
+    expect(ISODayToHWCDay(4, HWCWeekDays.Thursday)).toBe(1)
+    expect(ISODayToHWCDay(5, HWCWeekDays.Thursday)).toBe(2)
+    expect(ISODayToHWCDay(6, HWCWeekDays.Thursday)).toBe(3)
+    expect(ISODayToHWCDay(7, HWCWeekDays.Thursday)).toBe(4)
+    // ISO: MO=1,TU=2,WE=3,TH=4,FR=5,SA=6,SU=7
+    // HWC: FR=1,SA=2,SU=3,MO=4,TU=5,WE=6,TH=7
+    expect(ISODayToHWCDay(1, HWCWeekDays.Friday)).toBe(4)
+    expect(ISODayToHWCDay(2, HWCWeekDays.Friday)).toBe(5)
+    expect(ISODayToHWCDay(3, HWCWeekDays.Friday)).toBe(6)
+    expect(ISODayToHWCDay(4, HWCWeekDays.Friday)).toBe(7)
+    expect(ISODayToHWCDay(5, HWCWeekDays.Friday)).toBe(1)
+    expect(ISODayToHWCDay(6, HWCWeekDays.Friday)).toBe(2)
+    expect(ISODayToHWCDay(7, HWCWeekDays.Friday)).toBe(3)
   })
   it('should convert properly between HWC and ISO weekdays', () => {
     // ISO: MO=1,TU=2,WE=3,TH=4,FR=5,SA=6,SU=7

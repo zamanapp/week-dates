@@ -1,10 +1,10 @@
 import { Temporal } from '@js-temporal/polyfill'
-import { fromHWCDate, toHWCDate } from 'hijri-week-calendar'
 import { temporalInstantFromISOWeek, temporalToISOPlainDateWeek } from './iso/premetives'
 import { HWCWeekDays, ISOWeekDays, getWeekDayCodeName } from './common/weekDays'
 import type { Scale, SupportedCalendars, SupportedHijriCalendars } from './common/calendars'
 import { getCalendarFormId, getCalendarSuperId, getScaleFromCalendarId } from './common/calendars'
 import { instantToOtherTemporal, weekDatePartsFromString } from './common/utils'
+import { temporalInstantFromHWCDate, temporalToHWCPlainDateWeek } from './hwc/premitives'
 
 interface ToStringOptions {
   // don't show the day of the week
@@ -13,6 +13,16 @@ interface ToStringOptions {
   calendarName: 'auto' | 'never' | 'always'
   // control if the week start day should be shown
   weekStartDay: 'auto' | 'never' | 'always'
+}
+
+interface Reference {
+  referenceTime?: Temporal.PlainDateTime | Temporal.ZonedDateTime | Temporal.PlainTime
+  referenceTimezone?: Temporal.TimeZoneLike
+}
+
+interface PlainWeekDateReference {
+  calendar?: SupportedCalendars
+  weekDayStart?: HWCWeekDays | ISOWeekDays
 }
 
 // TODO: add static methods from and compare
@@ -106,53 +116,11 @@ export class PlainWeekDate {
   }
 
   // calendar is ignored in the relativeTo parameter
-  toTemporalInstant(weekDayStart: HWCWeekDays | ISOWeekDays = this.weekDayStart, relativeTo?: Temporal.PlainDateTime | Temporal.ZonedDateTime): Temporal.Instant {
-    if (this.scale === 'Gregorian') {
-      return temporalInstantFromISOWeek(this.yearOfWeek, this.weekOfYear, this.dayOfWeek, weekDayStart, relativeTo)
-    }
-    else {
-      // check how to convert to HWC
-      // TODO: replace this to support custom weekDayStart
-      const dateInfo = fromHWCDate([this.yearOfWeek, this.weekOfYear, this.dayOfWeek], getCalendarSuperId(this.calendarId) as SupportedHijriCalendars)
-      if (relativeTo) {
-        if (relativeTo instanceof Temporal.ZonedDateTime) {
-          return Temporal.ZonedDateTime.from({
-            year: dateInfo[0],
-            month: dateInfo[1],
-            day: dateInfo[2],
-            calendar: getCalendarFormId(this.calendarId),
-            hour: relativeTo.hour,
-            minute: relativeTo.minute,
-            second: relativeTo.second,
-            timeZone: relativeTo.timeZoneId,
-          }).toInstant()
-        }
-        else {
-          return Temporal.ZonedDateTime.from({
-            year: dateInfo[0],
-            month: dateInfo[1],
-            day: dateInfo[2],
-            calendar: getCalendarFormId(this.calendarId),
-            hour: relativeTo.hour,
-            minute: relativeTo.minute,
-            second: relativeTo.second,
-            timeZone: 'UTC',
-          }).toInstant()
-        }
-      }
-      else {
-        return Temporal.ZonedDateTime.from({
-          year: dateInfo[0],
-          month: dateInfo[1],
-          day: dateInfo[2],
-          calendar: getCalendarFormId(this.calendarId),
-          hour: 0,
-          minute: 0,
-          second: 0,
-          timeZone: 'UTC',
-        }).toInstant()
-      }
-    }
+  toTemporalInstant(weekDayStart: HWCWeekDays | ISOWeekDays = this.weekDayStart, reference?: Reference): Temporal.Instant {
+    if (this.scale === 'Gregorian')
+      return temporalInstantFromISOWeek(this.yearOfWeek, this.weekOfYear, this.dayOfWeek, weekDayStart as ISOWeekDays, reference)
+    else
+      return temporalInstantFromHWCDate(this.yearOfWeek, this.weekOfYear, this.dayOfWeek, getCalendarSuperId(this.calendarId) as SupportedHijriCalendars, weekDayStart as HWCWeekDays, reference)
   }
 
   toPlainDate(): Temporal.PlainDate {
@@ -185,14 +153,11 @@ export class PlainWeekDate {
     const calendar = getCalendarFormId(calendarId, newStart)
     const newDate = this.toPlainDate().withCalendar(calendar)
     const newScale = getScaleFromCalendarId(calendarId)
-    if (newScale === 'Gregorian') {
-      return temporalToISOPlainDateWeek(newDate, newStart)
-    }
-    else {
-      // TODO: replace this to support custom weekDayStart
-      const [yow, woy, dow] = toHWCDate(newDate.year, newDate.month, newDate.day, getCalendarSuperId(calendarId) as SupportedHijriCalendars)
-      return new PlainWeekDate(yow, woy, dow, calendarId, newStart)
-    }
+    if (newScale === 'Gregorian')
+      return temporalToISOPlainDateWeek(newDate, newStart as ISOWeekDays)
+
+    else
+      return temporalToHWCPlainDateWeek(newDate, newStart as HWCWeekDays)
   }
 
   withWeekDayStart(weekDayStart: HWCWeekDays | ISOWeekDays): PlainWeekDate {
@@ -205,21 +170,27 @@ export class PlainWeekDate {
   // from should support strings, different Temporal objects and plain object with the right properties
   // from should inherit weekDayStart from a Temporal objects that use extended calendars
   // from should also accept a PlainWeekDay object and return a new object with the same properties
-  static from(from: string | Temporal.PlainDate | Temporal.PlainDateTime | Temporal.ZonedDateTime | PlainWeekDate, calendar: SupportedCalendars = 'iso8601', weekDayStart: HWCWeekDays | ISOWeekDays = 1): PlainWeekDate {
+  static from(from: string | Temporal.PlainDate | Temporal.PlainDateTime | Temporal.ZonedDateTime | PlainWeekDate, reference: PlainWeekDateReference): PlainWeekDate {
     if (typeof from === 'string') {
-      // TODO: extract weekDayStart and calendar from the string
-      const [yow, woy, dow, wkst, cal] = weekDatePartsFromString(from, getScaleFromCalendarId(calendar))
-      return new PlainWeekDate(yow, woy, dow, calendar ?? cal, weekDayStart ?? wkst)
+      const [yow, woy, dow, cal, wkst] = weekDatePartsFromString(from)
+      return new PlainWeekDate(yow, woy, dow, reference.calendar ?? cal, reference.weekDayStart ?? wkst)
     }
     else if (from instanceof PlainWeekDate) {
       // if we have a calendar and weekStart we should use them to convert the PlainWeekDate to a new instance
-      return new PlainWeekDate(from.yearOfWeek, from.weekOfYear, from.dayOfWeek, calendar, weekDayStart)
+      return new PlainWeekDate(from.yearOfWeek, from.weekOfYear, from.dayOfWeek, reference.calendar, reference.weekDayStart)
     }
     else {
+      const cal = getCalendarFormId(from.calendarId as SupportedHijriCalendars)
+      let scale = getScaleFromCalendarId(from.calendarId as SupportedHijriCalendars)
       // if we have a calendar and weekStart we should use them to convert the date before returning a new instance
-      const calendarId = getCalendarSuperId(from.calendarId as SupportedHijriCalendars)
-      const [yow, woy, dow] = toHWCDate(from.year, from.month, from.day, calendarId as SupportedHijriCalendars)
-      return new PlainWeekDate(yow, woy, dow, from.calendarId as SupportedHijriCalendars, weekDayStart)
+      if (reference.calendar && reference.calendar !== cal) {
+        from = from.withCalendar(reference.calendar)
+        scale = getScaleFromCalendarId(reference.calendar)
+      }
+      if (scale === 'Gregorian')
+        return temporalToISOPlainDateWeek(from, reference.weekDayStart as ISOWeekDays ?? 1)
+      else
+        return temporalToHWCPlainDateWeek(from, reference.weekDayStart as HWCWeekDays ?? 1)
     }
   }
 

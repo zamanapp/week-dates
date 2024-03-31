@@ -8,8 +8,8 @@ import { Scales } from '../common/calendars'
 // Constants
 // ------------------------------------------------------------------------------
 
-const MIN_YEAR = -9999
-const MAX_YEAR = 9999
+const MIN_YEAR = -9999 // should we update to -271821 to align with Temporal?
+const MAX_YEAR = 9999 // should we update to 275760 to align with Temporal?
 const MIN_WEEK = 1
 const MIN_DAY = 1
 
@@ -21,6 +21,44 @@ const NANOSECOND_PER_MILLISECOND = 1000000
 
 // -----------------------------------------------------------------------------
 
+// currently although convoluted the arithmetical method is faster then using temporal
+// see benchmarks/performance.bench.ts
+// we will revisit this in the future once Temporal lands in the browsers
+// export function temporalInstantFromISOWeek(
+//   yearOfWeek: number,
+//   weekOfYear: number,
+//   dayOfWeek: number = MIN_DAY,
+//   weekStartDay = ISOWeekDays.Monday,
+//   reference?: {
+//     referenceTime?: Temporal.PlainDateTime | Temporal.ZonedDateTime | Temporal.PlainTime
+//     referenceTimezone?: Temporal.TimeZoneLike
+//   },
+// ): Temporal.Instant {
+//   if (dayOfWeek < MIN_DAY || dayOfWeek > 7)
+//     throw new RangeError(`Invalid day: ${dayOfWeek} must be >= ${MIN_DAY} and <= 7`)
+
+//   if (yearOfWeek < MIN_YEAR || yearOfWeek > MAX_YEAR)
+//     throw new RangeError(`Invalid year: ${yearOfWeek} must be >= ${MIN_YEAR} and <= ${MAX_YEAR}`)
+
+//   const MAX_WEEK = weeksInISOYear(yearOfWeek, weekStartDay)
+//   if (weekOfYear <= 0 || weekOfYear > MAX_WEEK) {
+//     throw new RangeError(
+//       `Invalid week: ${weekOfYear} value must be > ${MIN_WEEK} and <= ${MAX_WEEK} the ISO week count for the year ${yearOfWeek}.`,
+//     )
+//   }
+
+//   if (weekStartDay < 1 || weekStartDay > 7)
+//     throw new RangeError(`Invalid week start day: ${weekStartDay} value must be >= 1 and <= 7`)
+//   // Calculate the day of the week for Jan 4th
+//   const jan4th = Temporal.PlainDate.from({ year: yearOfWeek, month: 1, day: 4 }) // 4th January (yyyy-01-04)
+//   const dow = getWeekDayNumber(jan4th.dayOfWeek, Scales.Gregorian, weekStartDay)
+//   return jan4th.add({ days: (weekOfYear - 1) * 7 + dayOfWeek - dow })
+//     .toZonedDateTime({
+//       timeZone: reference?.referenceTimezone ?? 'UTC',
+//       plainTime: reference?.referenceTime ?? Temporal.PlainTime.from('00:00:00'),
+//     }).toInstant()
+// }
+
 /*
  * temporalFromISOWeek converts an ISO week to a Temporal.Instant relative to a given Temporal Object (PlainDate, PlainDateTime, ZonedDateTime).
  */
@@ -29,11 +67,11 @@ export function temporalInstantFromISOWeek(
   week: number,
   day: number = MIN_DAY,
   weekStartDay = ISOWeekDays.Monday,
-  reference?: Temporal.PlainDateTime | Temporal.ZonedDateTime,
+  reference?: {
+    referenceTime?: Temporal.PlainDateTime | Temporal.ZonedDateTime | Temporal.PlainTime
+    referenceTimezone?: Temporal.TimeZoneLike
+  },
 ): Temporal.Instant {
-  // see https://regex101.com/r/DxQeva/1
-  // see https://regex101.com/r/DxQeva/3
-
   if (day < MIN_DAY || day > 7)
     throw new RangeError(`Invalid day: ${day} must be >= ${MIN_DAY} and <= 7`)
 
@@ -43,7 +81,7 @@ export function temporalInstantFromISOWeek(
   const MAX_WEEK = weeksInISOYear(year, weekStartDay)
   if (week <= 0 || week > MAX_WEEK) {
     throw new RangeError(
-      `Invalid week: ${week} value must be > ${MIN_WEEK} and <= ${MAX_WEEK} the ISO week count for the year in question.`,
+      `Invalid week: ${week} value must be > ${MIN_WEEK} and <= ${MAX_WEEK} the ISO week count for the year ${year}.`,
     )
   }
 
@@ -52,18 +90,19 @@ export function temporalInstantFromISOWeek(
 
   const ordinalDate = ordinalDateFromWeekDate(year, week, day, weekStartDay)
   let time = timeFromYear(year) + (ordinalDate - 1) * MILLISECONDS_PER_DAY
-  if (reference instanceof Temporal.PlainDateTime) {
-    time += reference.hour * MILLISECONDS_PER_HOUR
-    time += reference.minute * MILLISECONDS_PER_MINUTE
-    time += reference.second * MILLISECONDS_PER_SECOND
-    time += reference.millisecond
+  if (reference?.referenceTime) {
+    const temp = reference.referenceTime
+    time += temp.hour * MILLISECONDS_PER_HOUR
+    time += temp.minute * MILLISECONDS_PER_MINUTE
+    time += temp.second * MILLISECONDS_PER_SECOND
+    time += temp.millisecond
   }
 
-  if (reference instanceof Temporal.ZonedDateTime) {
+  if (reference?.referenceTimezone) {
     // figure out the offset
-    reference = Temporal.Instant.fromEpochMilliseconds(time).toZonedDateTimeISO(reference.timeZoneId)
-    const offset = reference.offsetNanoseconds / NANOSECOND_PER_MILLISECOND
-    time += offset
+    const temp = Temporal.Instant.fromEpochMilliseconds(time).toZonedDateTimeISO(reference?.referenceTimezone)
+    const offset = temp.offsetNanoseconds / NANOSECOND_PER_MILLISECOND
+    time -= offset
   }
 
   return Temporal.Instant.fromEpochMilliseconds(time)
@@ -91,7 +130,10 @@ function ordinalDateFromWeekDate(
   return firstDayOfFirstWeek + (weekOfYear - 1) * 7 + adjustedDayOfWeek
 }
 
-export function temporalInstantFromISOWeekString(isoWeekDate: string, reference?: Temporal.PlainDateTime | Temporal.ZonedDateTime): Temporal.Instant {
+export function temporalInstantFromISOWeekString(isoWeekDate: string, reference?: {
+  referenceTime?: Temporal.PlainDateTime | Temporal.ZonedDateTime | Temporal.PlainTime
+  referenceTimezone?: Temporal.TimeZoneLike
+}): Temporal.Instant {
   const [yow, woy, dow, calendar, weekStartDay] = weekDatePartsFromString(isoWeekDate)
 
   if (!['iso8601', 'iso8601-extended', 'gregorian'].includes(calendar))
@@ -101,27 +143,16 @@ export function temporalInstantFromISOWeekString(isoWeekDate: string, reference?
 }
 
 /*
- * Convert daysFromYear into milleseconds...can feed into new Date()
+ * Convert daysFromYear into milliseconds...can feed into new Date()
  */
 function timeFromYear(year: number) {
   return dayFromYear(year) * MILLISECONDS_PER_DAY
 }
 
-const pivotDayToISO = [4, 5, 6, 7, 1, 2, 3]
-
 export function weeksInISOYear(year: number, weekStartDay = ISOWeekDays.Monday) {
-  let startDay = new Temporal.PlainDate(year, 1, 1)
-  const pivotDay = pivotDayToISO[weekStartDay - 1]
-  while (startDay.dayOfWeek !== pivotDay)
-    startDay = startDay.add({ days: 1 })
-
-  let endDay = new Temporal.PlainDate(year + 1, 1, 1)
-  while (endDay.dayOfWeek !== pivotDay)
-    endDay = endDay.add({ days: 1 })
-
-  // count all pivot days in the year
-  const totalDays = endDay.since(startDay, { largestUnit: 'days' }).days
-  return Math.floor(totalDays / 7)
+  const lastDay = new Temporal.PlainYearMonth(year, 12).daysInMonth
+  const date = new Temporal.PlainDate(year, 12, lastDay).subtract({ days: 3 })
+  return temporalToISOPlainDateWeek(date, weekStartDay).weekOfYear
 }
 
 /*
@@ -174,8 +205,8 @@ export function temporalToISOPlainDateWeek(
   // get the day of the week
   const dow = getWeekDayNumber(date.dayOfWeek, Scales.Gregorian, weekStartDay)
   const pivotDate = date.add({ days: 4 - dow }) // get the pivot day of the week
-  const yearStart = new Temporal.PlainDate(pivotDate.year, 1, 1)
-  const woy = Math.ceil((pivotDate.since(yearStart).days + 1) / 7)
+  const yowStart = new Temporal.PlainDate(pivotDate.year, 1, 1)
+  const woy = Math.ceil((pivotDate.since(yowStart).days + 1) / 7)
 
   // Day of week as 1-7
   return new PlainWeekDate(pivotDate.year, woy, dow, 'iso8601', weekStartDay)

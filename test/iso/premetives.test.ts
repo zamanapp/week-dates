@@ -36,7 +36,7 @@ const alaskaTimezone = Temporal.ZonedDateTime.from({
   timeZone: 'America/Anchorage',
 })
 
-describe('iso primitives should work', () => {
+describe('iso week date calculations primitives should work', () => {
   it('should generate Temporal Instant from ISO week date parts', () => {
     expect(temporalInstantFromISOWeek(2021, 1, 1)).toBeInstanceOf(Temporal.Instant)
     expect(temporalInstantFromISOWeek(2021, 1, 1).toString()).toBe('2021-01-04T00:00:00Z')
@@ -87,14 +87,14 @@ describe('iso primitives should work', () => {
 
     // support for timezone and DST
     // positive timezone
-    expect(temporalInstantFromISOWeek(1980, 1, 1, ISOWeekDays.Monday, klTimezone).toString()).toBe('1979-12-31T07:30:00Z')
-    expect(temporalInstantFromISOWeek(1981, 53, 7, ISOWeekDays.Monday, klTimezone).toString()).toBe('1982-01-03T08:00:00Z')
+    expect(temporalInstantFromISOWeek(1980, 1, 1, ISOWeekDays.Monday, { referenceTimezone: klTimezone }).toString()).toBe('1979-12-30T16:30:00Z')
+    expect(temporalInstantFromISOWeek(1981, 53, 7, ISOWeekDays.Monday, { referenceTimezone: klTimezone }).toString()).toBe('1982-01-02T16:00:00Z')
     // negative timezone
-    expect(temporalInstantFromISOWeek(2021, 1, 1, ISOWeekDays.Monday, alaskaTimezone).toString()).toBe('2021-01-03T15:00:00Z')
-    expect(temporalInstantFromISOWeek(2024, 11, 1, ISOWeekDays.Monday, alaskaTimezone).toString()).toBe('2024-03-10T16:00:00Z')
+    expect(temporalInstantFromISOWeek(2021, 1, 1, ISOWeekDays.Monday, { referenceTimezone: alaskaTimezone }).toString()).toBe('2021-01-04T09:00:00Z')
+    expect(temporalInstantFromISOWeek(2024, 11, 1, ISOWeekDays.Monday, { referenceTimezone: alaskaTimezone }).toString()).toBe('2024-03-11T08:00:00Z')
 
     // support for time
-    expect(temporalInstantFromISOWeek(2021, 1, 1, ISOWeekDays.Monday, dateWithTime).toString()).toBe('2021-01-04T12:30:45Z')
+    expect(temporalInstantFromISOWeek(2021, 1, 1, ISOWeekDays.Monday, { referenceTime: dateWithTime }).toString()).toBe('2021-01-04T12:30:45Z')
     // additional test cases from: https://calendars.fandom.com/wiki/ISO_week_date
     expect(temporalInstantFromISOWeek(2004, 53, 6).toString()).toBe('2005-01-01T00:00:00Z')
     expect(temporalInstantFromISOWeek(2004, 53, 7).toString()).toBe('2005-01-02T00:00:00Z')
@@ -172,14 +172,14 @@ describe('iso primitives should work', () => {
 
     // support for timezone and DST
     // positive timezone
-    expect(temporalInstantFromISOWeekString('1980-W01-1[MO]', klTimezone).toString()).toBe('1979-12-31T07:30:00Z')
-    expect(temporalInstantFromISOWeekString('1981-W53-7[MO]', klTimezone).toString()).toBe('1982-01-03T08:00:00Z')
+    expect(temporalInstantFromISOWeekString('1980-W01-1[MO]', { referenceTimezone: klTimezone }).toString()).toBe('1979-12-30T16:30:00Z')
+    expect(temporalInstantFromISOWeekString('1981-W53-7[MO]', { referenceTimezone: klTimezone }).toString()).toBe('1982-01-02T16:00:00Z')
     // negative timezone
-    expect(temporalInstantFromISOWeekString('2021-W01-1[MO]', alaskaTimezone).toString()).toBe('2021-01-03T15:00:00Z')
-    expect(temporalInstantFromISOWeekString('2024-W11-1[MO]', alaskaTimezone).toString()).toBe('2024-03-10T16:00:00Z')
+    expect(temporalInstantFromISOWeekString('2021-W01-1[MO]', { referenceTimezone: alaskaTimezone }).toString()).toBe('2021-01-04T09:00:00Z')
+    expect(temporalInstantFromISOWeekString('2024-W11-1[MO]', { referenceTimezone: alaskaTimezone }).toString()).toBe('2024-03-11T08:00:00Z')
 
     // support for time
-    expect(temporalInstantFromISOWeekString('2021-W01-1[MO]', dateWithTime).toString()).toBe('2021-01-04T12:30:45Z')
+    expect(temporalInstantFromISOWeekString('2021-W01-1[MO]', { referenceTime: dateWithTime }).toString()).toBe('2021-01-04T12:30:45Z')
 
     // additional test cases from: https://calendars.fandom.com/wiki/ISO_week_date
     expect(temporalInstantFromISOWeekString('2004-W53-6').toString()).toBe('2005-01-01T00:00:00Z')

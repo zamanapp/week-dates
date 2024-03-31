@@ -1,7 +1,6 @@
 import { Temporal } from '@js-temporal/polyfill'
 import { ISOWeekDays } from '../common/weekDays'
 import { PlainWeekDate } from '../plainWeekDate'
-import type { SupportedCalendars } from '../common/calendars'
 import { temporalToISOPlainDateWeek, weeksInISOYear } from './premetives'
 
 export class ISOExtended extends Temporal.Calendar {
@@ -19,26 +18,29 @@ export class ISOExtended extends Temporal.Calendar {
   // ISO accessors
   yearOfWeek(date: string | Temporal.PlainDate | Temporal.PlainDateTime | Temporal.PlainDateLike): number {
     const tDate = Temporal.PlainDate.from(date).withCalendar(this.superId)
-    return temporalToISOPlainDateWeek(tDate, this.weekDayStart - 1).yearOfWeek
+    return temporalToISOPlainDateWeek(tDate, this.weekDayStart).yearOfWeek
   }
 
   weekOfYear(date: string | Temporal.PlainDate | Temporal.PlainDateTime | Temporal.PlainDateLike): number {
     const tDate = Temporal.PlainDate.from(date).withCalendar(this.superId)
-    return temporalToISOPlainDateWeek(tDate, this.weekDayStart - 1).weekOfYear
+    return temporalToISOPlainDateWeek(tDate, this.weekDayStart).weekOfYear
   }
 
   dayOfWeek(date: string | Temporal.PlainDate | Temporal.PlainDateTime | Temporal.PlainDateLike): number {
     const tDate = Temporal.PlainDate.from(date).withCalendar(this.superId)
-    return temporalToISOPlainDateWeek(tDate, this.weekDayStart - 1).dayOfWeek
+    return temporalToISOPlainDateWeek(tDate, this.weekDayStart).dayOfWeek
   }
 
   weeksInYear(date: string | Temporal.PlainDate | Temporal.PlainDateTime | Temporal.PlainDateLike): number {
     const tDate = Temporal.PlainDate.from(date)
-    return weeksInISOYear(tDate.year)
+    return weeksInISOYear(tDate.year, this.weekDayStart)
   }
 
   toPlainWeekDate(date: string | Temporal.PlainDate | Temporal.PlainDateTime | Temporal.PlainDateLike): PlainWeekDate {
-    return PlainWeekDate.from(Temporal.PlainDate.from(date), this.id as SupportedCalendars, this.weekDayStart - 1)
+    return PlainWeekDate.from(Temporal.PlainDate.from(date), {
+      calendar: this.id as 'iso-extended',
+      weekDayStart: this.weekDayStart,
+    })
   }
 
   // overriding base calendar logic to use this calendar
