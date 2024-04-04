@@ -30,8 +30,8 @@ beforeEach<PopulatedContext>(async (conxtext) => {
   conxtext.END_YEAR = END_YEAR
 })
 
-describe('hwc week date calculations primitives should work', () => {
-  it<PopulatedContext>('should generate Temporal Instant from HWC week date parts', ({ umalqura, civil, tbla }) => {
+describe.concurrent('hwc week date calculations primitives should work', () => {
+  it<PopulatedContext>('should generate Temporal Instant from HWC week date parts', async ({ umalqura, civil, tbla }) => {
     for (let startDay = 1; startDay <= 7; startDay++) {
       for (let i = 0; i < umalqura.length; i++) {
         const row = umalqura[startDay - 1][i]
@@ -42,9 +42,9 @@ describe('hwc week date calculations primitives should work', () => {
           calendar: 'islamic-umalqura',
         })
         expect(instant).toBeInstanceOf(Temporal.Instant)
-        expect.soft(date.year).toBe(y)
-        expect.soft(date.month).toBe(m)
-        expect.soft(date.day).toBe(d)
+        expect(date.year).toBe(y)
+        expect(date.month).toBe(m)
+        expect(date.day).toBe(d)
       }
       for (let i = 0; i < civil.length; i++) {
         const row = civil[startDay - 1][i]
@@ -55,9 +55,9 @@ describe('hwc week date calculations primitives should work', () => {
           calendar: 'islamic-civil',
         })
         expect(instant).toBeInstanceOf(Temporal.Instant)
-        expect.soft(date.year).toBe(y)
-        expect.soft(date.month).toBe(m)
-        expect.soft(date.day).toBe(d)
+        expect(date.year).toBe(y)
+        expect(date.month).toBe(m)
+        expect(date.day).toBe(d)
       }
       for (let i = 0; i < tbla.length; i++) {
         const row = tbla[startDay - 1][i]
@@ -68,13 +68,13 @@ describe('hwc week date calculations primitives should work', () => {
           calendar: 'islamic-tbla',
         })
         expect(instant).toBeInstanceOf(Temporal.Instant)
-        expect.soft(date.year).toBe(y)
-        expect.soft(date.month).toBe(m)
-        expect.soft(date.day).toBe(d)
+        expect(date.year).toBe(y)
+        expect(date.month).toBe(m)
+        expect(date.day).toBe(d)
       }
     }
   })
-  it<PopulatedContext>('should generate Temporal Instant from HWC week date string', ({ umalqura, civil, tbla }) => {
+  it<PopulatedContext>('should generate Temporal Instant from HWC week date string', async ({ umalqura, civil, tbla }) => {
     for (let startDay = 1; startDay <= 7; startDay++) {
       for (let i = 0; i < umalqura.length; i++) {
         const row = umalqura[startDay - 1][i]
@@ -85,9 +85,9 @@ describe('hwc week date calculations primitives should work', () => {
           calendar: 'islamic-umalqura',
         })
         expect(instant).toBeInstanceOf(Temporal.Instant)
-        expect.soft(date.year).toBe(y)
-        expect.soft(date.month).toBe(m)
-        expect.soft(date.day).toBe(d)
+        expect(date.year).toBe(y)
+        expect(date.month).toBe(m)
+        expect(date.day).toBe(d)
       }
       for (let i = 0; i < civil.length; i++) {
         const row = civil[startDay - 1][i]
@@ -98,9 +98,9 @@ describe('hwc week date calculations primitives should work', () => {
           calendar: 'islamic-civil',
         })
         expect(instant).toBeInstanceOf(Temporal.Instant)
-        expect.soft(date.year).toBe(y)
-        expect.soft(date.month).toBe(m)
-        expect.soft(date.day).toBe(d)
+        expect(date.year).toBe(y)
+        expect(date.month).toBe(m)
+        expect(date.day).toBe(d)
       }
       for (let i = 0; i < tbla.length; i++) {
         const row = tbla[startDay - 1][i]
@@ -111,13 +111,13 @@ describe('hwc week date calculations primitives should work', () => {
           calendar: 'islamic-tbla',
         })
         expect(instant).toBeInstanceOf(Temporal.Instant)
-        expect.soft(date.year).toBe(y)
-        expect.soft(date.month).toBe(m)
-        expect.soft(date.day).toBe(d)
+        expect(date.year).toBe(y)
+        expect(date.month).toBe(m)
+        expect(date.day).toBe(d)
       }
     }
   })
-  it<PopulatedContext>('should generate a PlainWeekDate from a Temporal Object', ({ umalqura, civil, tbla }) => {
+  it<PopulatedContext>('should generate a PlainWeekDate from a Temporal Object', async ({ umalqura, civil, tbla }) => {
     for (let startDay = 1; startDay <= 7; startDay++) {
       for (let i = 0; i < umalqura.length; i++) {
         const row = umalqura[startDay - 1][i]
@@ -125,9 +125,9 @@ describe('hwc week date calculations primitives should work', () => {
         const date = Temporal.PlainDate.from({ year: y, month: m, day: d, calendar: 'islamic-umalqura' })
         const hwcDate = temporalToHWCPlainDateWeek(date, startDay)
         expect(hwcDate).toBeInstanceOf(PlainWeekDate)
-        expect.soft(hwcDate.yearOfWeek).toBe(yow)
-        expect.soft(hwcDate.weekOfYear).toBe(woy)
-        expect.soft(hwcDate.dayOfWeek).toBe(dow)
+        expect(hwcDate.yearOfWeek).toBe(yow)
+        expect(hwcDate.weekOfYear).toBe(woy)
+        expect(hwcDate.dayOfWeek).toBe(dow)
       }
       for (let i = 0; i < civil.length; i++) {
         const row = civil[startDay - 1][i]
@@ -135,9 +135,9 @@ describe('hwc week date calculations primitives should work', () => {
         const date = Temporal.PlainDate.from({ year: y, month: m, day: d, calendar: 'islamic-civil' })
         const hwcDate = temporalToHWCPlainDateWeek(date, startDay)
         expect(hwcDate).toBeInstanceOf(PlainWeekDate)
-        expect.soft(hwcDate.yearOfWeek).toBe(yow)
-        expect.soft(hwcDate.weekOfYear).toBe(woy)
-        expect.soft(hwcDate.dayOfWeek).toBe(dow)
+        expect(hwcDate.yearOfWeek).toBe(yow)
+        expect(hwcDate.weekOfYear).toBe(woy)
+        expect(hwcDate.dayOfWeek).toBe(dow)
       }
       for (let i = 0; i < tbla.length; i++) {
         const row = tbla[startDay - 1][i]
@@ -145,9 +145,9 @@ describe('hwc week date calculations primitives should work', () => {
         const date = Temporal.PlainDate.from({ year: y, month: m, day: d, calendar: 'islamic-tbla' })
         const hwcDate = temporalToHWCPlainDateWeek(date, startDay)
         expect(hwcDate).toBeInstanceOf(PlainWeekDate)
-        expect.soft(hwcDate.yearOfWeek).toBe(yow)
-        expect.soft(hwcDate.weekOfYear).toBe(woy)
-        expect.soft(hwcDate.dayOfWeek).toBe(dow)
+        expect(hwcDate.yearOfWeek).toBe(yow)
+        expect(hwcDate.weekOfYear).toBe(woy)
+        expect(hwcDate.dayOfWeek).toBe(dow)
       }
     }
   })
