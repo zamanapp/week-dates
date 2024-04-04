@@ -4,14 +4,14 @@ import { PlainWeekDate } from '../../plainWeekDate'
 import type { SupportedNativeHijriCalendars } from '../../common/calendars'
 import { temporalToHWCPlainDateWeek, weeksInHijriYear } from '../premitives'
 
-export class HWCUmalqura extends Temporal.Calendar {
-  readonly id = 'hwc-islamic-umalqura'
+export class HWCCivil extends Temporal.Calendar {
+  readonly id = 'hwc-islamic-civil'
   readonly superId: SupportedNativeHijriCalendars
   readonly weekStartDay: HWCWeekDays // Default to Saturday
 
   constructor(weekStartDay: HWCWeekDays = HWCWeekDays.Saturday) {
-    super('islamic-umalqura')
-    this.superId = 'islamic-umalqura'
+    super('islamic-civil')
+    this.superId = 'islamic-civil'
     this.weekStartDay = weekStartDay
   }
 
@@ -46,7 +46,7 @@ export class HWCUmalqura extends Temporal.Calendar {
 
   toPlainWeekDate(date: string | Temporal.PlainDate | Temporal.PlainDateTime | Temporal.PlainDateLike): PlainWeekDate {
     return PlainWeekDate.from(Temporal.PlainDate.from(date), {
-      calendar: this.id as 'hwc-islamic-umalqura',
+      calendar: this.id as 'hwc-islamic-civil',
       weekStartDay: this.weekStartDay,
     })
   }
@@ -58,7 +58,7 @@ export class HWCUmalqura extends Temporal.Calendar {
 
   // overriding base calendar logic to use this calendar
   dateFromFields(fields: Temporal.YearOrEraAndEraYear & Temporal.MonthOrMonthCode & { day: number }, options?: Temporal.AssignmentOptions | undefined): Temporal.PlainDate {
-    const native = Temporal.PlainDate.from({ ...fields, calendar: 'islamic-umalqura' }, options)
+    const native = Temporal.PlainDate.from({ ...fields, calendar: 'islamic-civil' }, options)
     return native.withCalendar(this)
   }
 
