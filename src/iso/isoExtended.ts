@@ -6,40 +6,40 @@ import { temporalToISOPlainDateWeek, weeksInISOYear } from './premetives'
 export class ISOExtended extends Temporal.Calendar {
   readonly id: string
   readonly superId: string
-  readonly weekDayStart: ISOWeekDays // Default to Monday
+  readonly weekStartDay: ISOWeekDays // Default to Monday
 
-  constructor(weekDayStart: ISOWeekDays = ISOWeekDays.Monday) {
+  constructor(weekStartDay: ISOWeekDays = ISOWeekDays.Monday) {
     super('iso8601')
     this.id = 'iso-extended'
     this.superId = 'iso8601'
-    this.weekDayStart = weekDayStart
+    this.weekStartDay = weekStartDay
   }
 
   // ISO accessors
   yearOfWeek(date: string | Temporal.PlainDate | Temporal.PlainDateTime | Temporal.PlainDateLike): number {
     const tDate = Temporal.PlainDate.from(date).withCalendar(this.superId)
-    return temporalToISOPlainDateWeek(tDate, this.weekDayStart).yearOfWeek
+    return temporalToISOPlainDateWeek(tDate, this.weekStartDay).yearOfWeek
   }
 
   weekOfYear(date: string | Temporal.PlainDate | Temporal.PlainDateTime | Temporal.PlainDateLike): number {
     const tDate = Temporal.PlainDate.from(date).withCalendar(this.superId)
-    return temporalToISOPlainDateWeek(tDate, this.weekDayStart).weekOfYear
+    return temporalToISOPlainDateWeek(tDate, this.weekStartDay).weekOfYear
   }
 
   dayOfWeek(date: string | Temporal.PlainDate | Temporal.PlainDateTime | Temporal.PlainDateLike): number {
     const tDate = Temporal.PlainDate.from(date).withCalendar(this.superId)
-    return temporalToISOPlainDateWeek(tDate, this.weekDayStart).dayOfWeek
+    return temporalToISOPlainDateWeek(tDate, this.weekStartDay).dayOfWeek
   }
 
   weeksInYear(date: string | Temporal.PlainDate | Temporal.PlainDateTime | Temporal.PlainDateLike): number {
     const tDate = Temporal.PlainDate.from(date)
-    return weeksInISOYear(tDate.year, this.weekDayStart)
+    return weeksInISOYear(tDate.year, this.weekStartDay)
   }
 
   toPlainWeekDate(date: string | Temporal.PlainDate | Temporal.PlainDateTime | Temporal.PlainDateLike): PlainWeekDate {
     return PlainWeekDate.from(Temporal.PlainDate.from(date), {
       calendar: this.id as 'iso-extended',
-      weekDayStart: this.weekDayStart,
+      weekStartDay: this.weekStartDay,
     })
   }
 

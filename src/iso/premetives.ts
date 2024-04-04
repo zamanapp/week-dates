@@ -23,7 +23,8 @@ const NANOSECOND_PER_MILLISECOND = 1000000
 
 // currently although convoluted the arithmetical method is faster then using temporal
 // see benchmarks/performance.bench.ts
-// we will revisit this in the future once Temporal lands in the browsers
+// We will revisit this in the future once Temporal lands in the browsers to see
+// if it's better to use this method over arithmetical method
 // export function temporalInstantFromISOWeek(
 //   yearOfWeek: number,
 //   weekOfYear: number,

@@ -1,6 +1,6 @@
 import { Temporal } from '@js-temporal/polyfill'
 import { getScaleFromCalendarId, isSupportedCalendar } from './calendars'
-import type { Scale, SupportedCalendars } from './calendars'
+import type { SupportedCalendars } from './calendars'
 import { getWeekDayCodeNumber } from './weekDays'
 
 const MIN_WEEK = 1
@@ -23,23 +23,23 @@ export function weekDatePartsFromString(weekDateString: string): [number, number
   if (typeof weekDateString !== 'string')
     throw new Error('Expected a string')
 
-  // take away the weekDayStart and calendar if present
+  // take away the weekStartDay and calendar if present
   const mainParts = weekDateString.split('[')
-  let weekDayStart = 1
+  let weekStartDay = 1
   let calendar = 'iso8601'
   if (mainParts.length === 3) {
     weekDateString = mainParts[0]
     calendar = mainParts[1].split(']')[0].replace(/u-ca=/g, '')
-    weekDayStart = getWeekDayCodeNumber(mainParts[2].split(']')[0], getScaleFromCalendarId(calendar as SupportedCalendars))
+    weekStartDay = getWeekDayCodeNumber(mainParts[2].split(']')[0], getScaleFromCalendarId(calendar as SupportedCalendars))
   }
   else if (mainParts.length === 2) {
-    // we need to figure out what the second chunk is as it could be either weekDayStart or calendar
+    // we need to figure out what the second chunk is as it could be either weekStartDay or calendar
     weekDateString = mainParts[0]
     const secondChunk = mainParts[1].split(']')[0]
     if (secondChunk.includes('u-ca='))
       calendar = secondChunk.replace(/u-ca=/g, '')
     else
-      weekDayStart = getWeekDayCodeNumber(secondChunk, getScaleFromCalendarId(calendar as SupportedCalendars))
+      weekStartDay = getWeekDayCodeNumber(secondChunk, getScaleFromCalendarId(calendar as SupportedCalendars))
   }
   if (!isSupportedCalendar(calendar))
     throw new Error(`Unsupported calendar in week date string: ${calendar}`)
@@ -57,7 +57,7 @@ export function weekDatePartsFromString(weekDateString: string): [number, number
   if (Number.isNaN(yearOfWeek))
     throwErr('Year')
   if (weekAndDay === undefined)
-    return [yearOfWeek, 1, 1, calendar as SupportedCalendars, weekDayStart] // year only return [year, 1, 1, weekDayStart, calendar]
+    return [yearOfWeek, 1, 1, calendar as SupportedCalendars, weekStartDay] // year only return [year, 1, 1, weekStartDay, calendar]
   if (weekAndDay.length > 3)
     throwErr('Weekday')
   const weekOfYear = +weekAndDay.slice(0, 2)
@@ -74,7 +74,7 @@ export function weekDatePartsFromString(weekDateString: string): [number, number
 
   if (Number.isNaN(dayOfWeek) || !isInRange(dayOfWeek, MIN_DAY, MAX_DAY))
     throwErr('Weekday')
-  return [yearOfWeek, weekOfYear, dayOfWeek, calendar as SupportedCalendars, weekDayStart]
+  return [yearOfWeek, weekOfYear, dayOfWeek, calendar as SupportedCalendars, weekStartDay]
 }
 
 // given an instant we convert it to any temporal object (PlainDateTime, ZonedDateTime, PlainDate)

@@ -7,12 +7,12 @@ import { temporalToHWCPlainDateWeek, weeksInHijriYear } from '../premitives'
 export class HWCUmalquraExtended extends Temporal.Calendar {
   readonly id = 'hwc-islamic-umalqura'
   readonly superId: SupportedNativeHijriCalendars
-  readonly weekDayStart: HWCWeekDays // Default to Saturday
+  readonly weekStartDay: HWCWeekDays // Default to Saturday
 
-  constructor(weekDayStart: HWCWeekDays = HWCWeekDays.Saturday) {
+  constructor(weekStartDay: HWCWeekDays = HWCWeekDays.Saturday) {
     super('islamic-umalqura')
     this.superId = 'islamic-umalqura'
-    this.weekDayStart = weekDayStart
+    this.weekStartDay = weekStartDay
   }
 
   toJSON(): string {
@@ -31,34 +31,34 @@ export class HWCUmalquraExtended extends Temporal.Calendar {
   // this will return the day of the week in the HWC representation
   dayOfWeek(date: string | Temporal.PlainDate | Temporal.PlainDateTime | Temporal.PlainDateLike): number {
     const Hdate = Temporal.PlainDate.from(date).withCalendar(this.superId)
-    return temporalToHWCPlainDateWeek(Hdate, this.weekDayStart).dayOfWeek
+    return temporalToHWCPlainDateWeek(Hdate, this.weekStartDay).dayOfWeek
   }
 
   yearOfWeek(date: string | Temporal.PlainDate | Temporal.PlainDateTime | Temporal.PlainDateLike): number {
     const Hdate = Temporal.PlainDate.from(date).withCalendar(this.superId)
-    return temporalToHWCPlainDateWeek(Hdate, this.weekDayStart).yearOfWeek
+    return temporalToHWCPlainDateWeek(Hdate, this.weekStartDay).yearOfWeek
   }
 
   weekOfYear(date: string | Temporal.PlainDate | Temporal.PlainDateTime | Temporal.PlainDateLike): number {
     const Hdate = Temporal.PlainDate.from(date).withCalendar(this.superId)
-    return temporalToHWCPlainDateWeek(Hdate, this.weekDayStart).weekOfYear
+    return temporalToHWCPlainDateWeek(Hdate, this.weekStartDay).weekOfYear
   }
 
   weeksInYear(date: string | Temporal.PlainDate | Temporal.PlainDateTime | Temporal.PlainDateLike): number {
     const Hdate = Temporal.PlainDate.from(date)
-    return weeksInHijriYear(Hdate.year, this.superId, this.weekDayStart)
+    return weeksInHijriYear(Hdate.year, this.superId, this.weekStartDay)
   }
 
   toPlainWeekDate(date: string | Temporal.PlainDate | Temporal.PlainDateTime | Temporal.PlainDateLike): PlainWeekDate {
     return PlainWeekDate.from(Temporal.PlainDate.from(date), {
       calendar: this.id as 'hwc-islamic-umalqura',
-      weekDayStart: this.weekDayStart,
+      weekStartDay: this.weekStartDay,
     })
   }
 
   // this is deprecated in favor of using withCalendar in PlainWeekDate
   // toISOWeek(start: ISOWeekDays = ISOWeekDays.Monday) {
-  //   // use the weekDayStart
+  //   // use the weekStartDay
   // }
 
   // overriding base calendar logic to use this calendar

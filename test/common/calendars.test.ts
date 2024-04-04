@@ -13,7 +13,7 @@ describe('calendars utilities should work', () => {
     // expect(getCalendarFormId('hwc-islamic-umalqura')).toBeInstanceOf(HWCUmalqura)
     // expect((getCalendarFormId('hwc-islamic-umalqura', 2) as HWCUmalqura)).toBeInstanceOf(HWCUmalqura)
     expect(getCalendarFormId('iso-extended')).toBeInstanceOf(ISOExtended)
-    expect((getCalendarFormId('iso-extended', ISOWeekDays.Tuesday) as ISOExtended).weekDayStart).toBe(ISOWeekDays.Tuesday)
+    expect((getCalendarFormId('iso-extended', ISOWeekDays.Tuesday) as ISOExtended).weekStartDay).toBe(ISOWeekDays.Tuesday)
   })
 
   it('should get super calendars properly', () => {

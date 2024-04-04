@@ -96,8 +96,8 @@ export function temporalToHWCPlainDateWeek(
   return new PlainWeekDate(pivotDate.year, woy, dow, calendar, weekStartDay)
 }
 
-export function weeksInHijriYear(year: number, calendar: SupportedHijriCalendars = 'islamic-umalqura', weekDayStart = HWCWeekDays.Saturday): number {
+export function weeksInHijriYear(year: number, calendar: SupportedHijriCalendars = 'islamic-umalqura', weekStartDay = HWCWeekDays.Saturday): number {
   // check if we need to use PlainYearMonth instaid of PlainDate
   const date = Temporal.PlainDate.from({ year, month: 12, day: 30, calendar }).subtract({ days: 3 })
-  return temporalToHWCPlainDateWeek(date, weekDayStart).weekOfYear
+  return temporalToHWCPlainDateWeek(date, weekStartDay).weekOfYear
 }

@@ -24,7 +24,11 @@ features:
 
   - title: Conversions
     icon: '🔁'
-    details: Enables conversion between ISO week dates and Gregorian, as well as between Hijri week dates and Hijri dates.
+    details: PlainWeekDate offers easy conversion between ISO week dates and Gregorian, as well as between Hijri week dates and Hijri dates.
+
+  - title: Custom calendars
+    icon: '📆'
+    details: Introduces custom Temporal calendars, extending existing ones to bring support of week dates to native Temporal objects.
 
   - title: Custom Week Start
     icon: '🌍'
@@ -37,8 +41,4 @@ features:
   - title: Parsing
     icon: '📜'
     details: Robust parsing of dates in ISO week and Hijri week formats, ensuring accurate date representations.
-
-  - title: Custom calendars
-    icon: '📆'
-    details: Introduces custom Temporal calendars, extending existing ones with these features for seamless Temporal integration.
 ---

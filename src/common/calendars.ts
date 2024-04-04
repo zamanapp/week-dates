@@ -15,11 +15,11 @@ export type SupportedNativeGregorianCalendars = 'iso8601' | 'gregorian'
 export type SupportedNativeCalendars = SupportedNativeHijriCalendars | SupportedNativeGregorianCalendars
 export type SupportedHijriCalendars = SupportedNativeHijriCalendars | 'hwc-islamic-umalqura' | 'hwc-islamic-civil' | 'hwc-islamic-tbla'
 
-export function getCalendarFormId(id: SupportedCalendars, weekDayStart: HWCWeekDays | ISOWeekDays = 1): Temporal.CalendarLike {
+export function getCalendarFormId(id: SupportedCalendars, weekStartDay: HWCWeekDays | ISOWeekDays = 1): Temporal.CalendarLike {
   if (id === 'iso-extended')
-    return new ISOExtended(weekDayStart as ISOWeekDays)
+    return new ISOExtended(weekStartDay as ISOWeekDays)
   else if (id === 'hwc-islamic-umalqura')
-    return new HWCUmalquraExtended(weekDayStart as HWCWeekDays)
+    return new HWCUmalquraExtended(weekStartDay as HWCWeekDays)
     // TODO: add more calendars
   else
     return id

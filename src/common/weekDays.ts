@@ -101,58 +101,58 @@ const numbersOffset = [
   [1, 2, 3, 4, 5, 6, 0],
 ]
 
-export function getWeekDayName(weekDay: number, scale: Scale, WeekDayStart: HWCWeekDays | ISOWeekDays = 1): string {
-  const index = namesOffset[WeekDayStart - 1][weekDay - 1]
+export function getWeekDayName(weekDay: number, scale: Scale, weekStartDay: HWCWeekDays | ISOWeekDays = 1): string {
+  const index = namesOffset[weekStartDay - 1][weekDay - 1]
   if (scale === Scales.Gregorian)
     return ISOWeekDaysNames[index]
 
   return HWCWeekDaysNames[index]
 }
 
-export function getWeekDayCodeName(weekDay: number, scale: Scale, WeekDayStart: HWCWeekDays | ISOWeekDays = 1): string {
-  const index = namesOffset[WeekDayStart - 1][weekDay - 1]
+export function getWeekDayCodeName(weekDay: number, scale: Scale, weekStartDay: HWCWeekDays | ISOWeekDays = 1): string {
+  const index = namesOffset[weekStartDay - 1][weekDay - 1]
   if (scale === Scales.Gregorian)
     return ISOWeekDaysCodeNames[index]
 
   return HWCWeekDaysCodeNames[index]
 }
 
-export function getWeekDayNumber(weekDay: string | number, scale: Scale, WeekDayStart: HWCWeekDays | ISOWeekDays = 1): number {
+export function getWeekDayNumber(weekDay: string | number, scale: Scale, weekStartDay: HWCWeekDays | ISOWeekDays = 1): number {
   if (scale === Scales.Gregorian) {
     if (typeof weekDay === 'string') {
       const index = ISOWeekDaysNames.findIndex(name => name === weekDay)
-      const offset = numbersOffset[WeekDayStart - 1][index]
+      const offset = numbersOffset[weekStartDay - 1][index]
       return offset + 1
     }
     else {
-      const offset = numbersOffset[WeekDayStart - 1][weekDay - 1]
+      const offset = numbersOffset[weekStartDay - 1][weekDay - 1]
       return offset + 1
     }
   }
 
   if (typeof weekDay === 'string') {
     const index = HWCWeekDaysNames.findIndex(name => name === weekDay)
-    const offset = numbersOffset[WeekDayStart - 1][index]
+    const offset = numbersOffset[weekStartDay - 1][index]
     return offset + 1
   }
   else {
-    const offset = numbersOffset[WeekDayStart - 1][weekDay - 1]
+    const offset = numbersOffset[weekStartDay - 1][weekDay - 1]
     return offset + 1
   }
 }
 
-export function getWeekDayCodeNumber(weekDay: string, scale: Scale, WeekDayStart: HWCWeekDays | ISOWeekDays = 1): number {
+export function getWeekDayCodeNumber(weekDay: string, scale: Scale, weekStartDay: HWCWeekDays | ISOWeekDays = 1): number {
   if (!ISOWeekDaysCodeNames.includes(weekDay))
     throw new Error('Invalid week day code')
 
   if (scale === Scales.Gregorian) {
     const index = ISOWeekDaysCodeNames.findIndex(name => name === weekDay)
-    const offset = numbersOffset[WeekDayStart - 1][index]
+    const offset = numbersOffset[weekStartDay - 1][index]
     return offset + 1
   }
 
   const index = HWCWeekDaysCodeNames.findIndex(name => name === weekDay)
-  const offset = numbersOffset[WeekDayStart - 1][index]
+  const offset = numbersOffset[weekStartDay - 1][index]
   return offset + 1
 }
 
@@ -168,8 +168,8 @@ const customHijriToISOOffsets = [
 
 ] // Custom offsets for each day of the week
 
-export function ISODayToHWCDay(isoWeekday: number, HWCWeekDayStart: HWCWeekDays = 1, ISOWeekDayStart: ISOWeekDays = 1): number {
-  const offset = customHijriToISOOffsets[HWCWeekDayStart - 1][ISOWeekDayStart - 1]
+export function ISODayToHWCDay(isoWeekday: number, HWCweekStartDay: HWCWeekDays = 1, ISOweekStartDay: ISOWeekDays = 1): number {
+  const offset = customHijriToISOOffsets[HWCweekStartDay - 1][ISOweekStartDay - 1]
   return (isoWeekday + offset) % 7 || 7
 }
 
@@ -184,7 +184,7 @@ const customISOToHijriOffsets = [
   [6, 7, 1, 2, 3, 4, 5], // ISO Sunday
 ]
 
-export function HWCtoISODay(HWCWeekday: number, ISOWeekDayStart: ISOWeekDays = 1, HWCWeekDayStart: HWCWeekDays = 1): number {
-  const offset = customISOToHijriOffsets[ISOWeekDayStart - 1][HWCWeekDayStart - 1]
+export function HWCtoISODay(HWCWeekday: number, ISOweekStartDay: ISOWeekDays = 1, HWCweekStartDay: HWCWeekDays = 1): number {
+  const offset = customISOToHijriOffsets[ISOweekStartDay - 1][HWCweekStartDay - 1]
   return (HWCWeekday + offset) % 7 || 7
 }
