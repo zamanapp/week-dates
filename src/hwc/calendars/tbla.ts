@@ -2,9 +2,9 @@ import { Temporal } from '@js-temporal/polyfill'
 import { HWCWeekDays } from '../../common/weekDays'
 import { PlainWeekDate } from '../../plainWeekDate'
 import type { SupportedNativeHijriCalendars } from '../../common/calendars'
-import { temporalToHWCPlainDateWeek, weeksInHijriYear } from '../premitives'
+import { temporalToHWCPlainDateWeek, weeksInHijriYear } from '../primitives'
 
-export class HWCCivil extends Temporal.Calendar {
+export class HWCTbla extends Temporal.Calendar {
   readonly id = 'hwc-islamic-tbla'
   readonly superId: SupportedNativeHijriCalendars
   readonly weekStartDay: HWCWeekDays // Default to Saturday
@@ -51,6 +51,7 @@ export class HWCCivil extends Temporal.Calendar {
     })
   }
 
+  // TODO: write documentation and tests on conversion. PlainWeekDate.from(date).withCalendar('islamic-tbla')
   // this is deprecated in favor of using withCalendar in PlainWeekDate
   // toISOWeek(start: ISOWeekDays = ISOWeekDays.Monday) {
   //   // use the weekStartDay

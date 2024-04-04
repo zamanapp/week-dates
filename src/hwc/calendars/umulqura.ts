@@ -2,7 +2,7 @@ import { Temporal } from '@js-temporal/polyfill'
 import { HWCWeekDays } from '../../common/weekDays'
 import { PlainWeekDate } from '../../plainWeekDate'
 import type { SupportedNativeHijriCalendars } from '../../common/calendars'
-import { temporalToHWCPlainDateWeek, weeksInHijriYear } from '../premitives'
+import { temporalToHWCPlainDateWeek, weeksInHijriYear } from '../primitives'
 
 export class HWCUmalqura extends Temporal.Calendar {
   readonly id = 'hwc-islamic-umalqura'

@@ -1,6 +1,6 @@
 import { Temporal } from '@js-temporal/polyfill'
 import { describe, expect, it } from 'vitest'
-import { temporalInstantFromISOWeek, temporalInstantFromISOWeekString, temporalToISOPlainDateWeek, weeksInISOYear } from '../../src/iso/premetives'
+import { temporalInstantFromISOWeek, temporalInstantFromISOWeekString, temporalToISOPlainDateWeek, weeksInISOYear } from '../../src/iso/primitives'
 import { ISOWeekDays } from '../../src/common/weekDays'
 import { PlainWeekDate } from '../../src/plainWeekDate'
 

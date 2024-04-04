@@ -1,12 +1,12 @@
 import { Temporal } from '@js-temporal/polyfill'
-import { temporalInstantFromISOWeek, temporalToISOPlainDateWeek } from './iso/premetives'
+import { temporalInstantFromISOWeek, temporalToISOPlainDateWeek } from './iso/primitives'
 import { HWCWeekDays, ISOWeekDays, getWeekDayCodeName } from './common/weekDays'
 import type { Scale, SupportedCalendars, SupportedHijriCalendars } from './common/calendars'
 import { getCalendarFormId, getCalendarSuperId, getScaleFromCalendarId } from './common/calendars'
 import { instantToOtherTemporal, weekDatePartsFromString } from './common/utils'
-import { temporalInstantFromHWCDate, temporalToHWCPlainDateWeek } from './hwc/premitives'
+import { temporalInstantFromHWCDate, temporalToHWCPlainDateWeek } from './hwc/primitives'
 
-interface ToStringOptions {
+export interface ToStringOptions {
   // don't show the day of the week
   shortForm?: boolean
   // control if the calendar name should be shown
@@ -15,17 +15,17 @@ interface ToStringOptions {
   weekStartDay: 'auto' | 'never' | 'always'
 }
 
-interface Reference {
+export interface Reference {
   referenceTime?: Temporal.PlainDateTime | Temporal.ZonedDateTime | Temporal.PlainTime
   referenceTimezone?: Temporal.TimeZoneLike
 }
 
-interface PlainWeekDateReference {
+export interface PlainWeekDateReference {
   calendar?: SupportedCalendars
   weekStartDay?: HWCWeekDays | ISOWeekDays
 }
 
-interface PlainWeekDateLike {
+export interface PlainWeekDateLike {
   yearOfWeek: number
   weekOfYear: number
   dayOfWeek?: number

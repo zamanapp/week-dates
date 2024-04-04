@@ -2,7 +2,7 @@
 import { bench, describe } from 'vitest'
 import { Temporal } from '@js-temporal/polyfill'
 import { ISOWeekDays, getWeekDayNumber } from '../src/common/weekDays'
-import { temporalInstantFromISOWeek, temporalToISOPlainDateWeek } from '../src/iso/premetives'
+import { temporalInstantFromISOWeek, temporalToISOPlainDateWeek } from '../src/iso/primitives'
 import { Scales } from '../src/common/calendars'
 
 const pivotDayToISO = [4, 5, 6, 7, 1, 2, 3]

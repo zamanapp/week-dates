@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { Temporal } from '@js-temporal/polyfill'
 import { storage } from '../../scripts/store'
-import { temporalInstantFromHWCDate, temporalInstantFromHWCWeekString, temporalToHWCPlainDateWeek } from '../../src/hwc/premitives'
+import { temporalInstantFromHWCDate, temporalInstantFromHWCWeekString, temporalToHWCPlainDateWeek } from '../../src/hwc/primitives'
 import { PlainWeekDate } from '../../src/plainWeekDate'
 import { getWeekDayCodeName } from '../../src/common/weekDays'
 import { Scales } from '../../src/common/calendars'

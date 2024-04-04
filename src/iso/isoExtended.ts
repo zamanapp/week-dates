@@ -1,7 +1,7 @@
 import { Temporal } from '@js-temporal/polyfill'
 import { ISOWeekDays } from '../common/weekDays'
 import { PlainWeekDate } from '../plainWeekDate'
-import { temporalToISOPlainDateWeek, weeksInISOYear } from './premetives'
+import { temporalToISOPlainDateWeek, weeksInISOYear } from './primitives'
 
 export class ISOExtended extends Temporal.Calendar {
   readonly id: string
