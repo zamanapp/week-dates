@@ -36,11 +36,11 @@ export {
   getCalendarSuperId,
   getScaleFromCalendarId,
   isSupportedCalendar,
+  Scales,
 } from './common/calendars'
 
 export type {
   Scale,
-  Scales,
   SupportedCalendars,
   SupportedHijriCalendars,
   SupportedNativeCalendars,
@@ -59,14 +59,18 @@ export {
   getWeekDayCodeNumber,
   getWeekDayName,
   getWeekDayNumber,
-} from './common/weekDays'
-
-export type {
   HWCWeekDays,
   HWCWeekDaysCodes,
   ISOWeekDays,
   ISOWeekDaysCodes,
 } from './common/weekDays'
+
+// export type {
+//   HWCWeekDays,
+//   HWCWeekDaysCodes,
+//   ISOWeekDays,
+//   ISOWeekDaysCodes,
+// } from './common/weekDays'
 
 export {
   instantToOtherTemporal,

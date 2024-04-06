@@ -63,13 +63,13 @@ For Deno users, week-dates is available on [deno.land/x](https://deno.land/x). I
 #### Latest Version:
 
 ```ts
-import { StaticCalculator } from 'https://deno.land/x/week-dates'
+import { PlainWeekDate } from 'https://deno.land/x/week-dates'
 ```
 
 #### Specific Version:
 
 ```ts
-import { StaticCalculator } from 'https://deno.land/x/week-dates@v1.1.0'
+import { PlainWeekDate } from 'https://deno.land/x/week-dates@v1.1.0'
 ```
 
 ::: tip
@@ -80,14 +80,16 @@ The rest of this documentation assumes you are using npm/yarn/pnpm/bun and impor
 
 Here's a quick example to get you started with the StaticCalculator for one-time prayer time calculations:
 
-```ts
+```ts twoslash
 import { PlainWeekDate } from 'week-dates'
+import { Temporal } from '@js-temporal/polyfill'
+//---cut---
 
-const weekDate = PlainWeekDate.from({ yearOfWeek: 2021, weekOfYear: 1, dayOfWeek: 1, })
+const weekDate = PlainWeekDate.from({ yearOfWeek: 2021, weekOfYear: 1, dayOfWeek: 1, }) // [!code highlight]
 console.log(weekDate.toString()) // 2021-W01-01
 console.log(weekDate.toPlainDate().toString()) // 2021-01-04
 
-const plainDate = Temporal.PlainDate.from({ year: 2021, month: 1, day: 4 })
-const weekDate2 = PlainWeekDate.from(plainDate)
+const plainDate = Temporal.PlainDate.from({ year: 2021, month: 1, day: 4 }) // [!code highlight]
+const weekDate2 = PlainWeekDate.from(plainDate) // [!code highlight]
 console.log(weekDate2.toString()) // 2021-W01-01
 ```

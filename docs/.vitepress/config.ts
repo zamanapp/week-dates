@@ -1,5 +1,18 @@
 import { defineConfig } from 'vitepress'
+import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
 import { version } from '../../package.json'
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Convert the URL to a path that's compatible with the file system
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Adjust the path to your file as necessary
+const filePath = path.resolve(__dirname, '../../dist/index.d.ts');
+const fileContent = fs.readFileSync(filePath, 'utf8');
+
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -37,9 +50,18 @@ export default defineConfig({
   },
   markdown: {
     theme: {
-      light: 'light-plus',
-      dark: 'one-dark-pro',
+      light: 'vitesse-light',
+      dark: 'vitesse-dark',
     },
+    codeTransformers: [
+      transformerTwoslash({
+        twoslashOptions: {
+          extraFiles: {
+            'week-dates.ts': fileContent,
+          },
+        }
+      })
+    ]
   },
 })
 
