@@ -6,7 +6,7 @@
 [![JSDocs][jsdocs-src]][jsdocs-href]
 [![License][license-src]][license-href]
 
-Utilities for working with week dates according ISO 8601 (ISO week date) and [Hijri week calendars](https://github.com/khawarizmus/hijri-week-calendar)  (Hijri week date) using Temporal.
+Utilities for working with week dates according [ISO week date](https://en.wikipedia.org/wiki/ISO_week_date) (ISO 8601) and [Hijri week calendars](https://github.com/khawarizmus/hijri-week-calendar)  (Hijri week date) using Temporal.
 
 Features:
 - Offer a new PlainWeekDate class to represent a week date
@@ -16,7 +16,45 @@ Features:
 - Support custom week start day for both ISO week date and Hijri week date
 - Format dates in ISO week date representation and Hijri week date representation
 - Parse dates in ISO week representation and Hijri week date representation
-- Offer custom Temporal calendars for both ISO 8601 and Hijri week calendars for easy integration with Temporal
+- Offer custom Temporal calendars for both ISO 8601 and Hijri week calendars enhancing Temporal objects with week date capabilities
+
+## Installation
+
+```bash
+pnpm add week-dates
+```
+
+## Usage
+
+For detailed usage see the [Documentation]()
+
+## Tests
+
+To run the tests on this repo you need to first generate some test data that the Hijri Week Calendar tests require. To do this, run the following command:
+
+```bash
+pnpm run generate
+```
+
+The script will ask you to verify the data however if you want to verify the data manually you can alwayse run the following command:
+
+```bash
+pnpm run verify
+```
+At this point you can run the tests using the following command:
+
+```bash
+pnpm test
+```
+
+or run the tests with test coverage in your browser by the following command:
+
+```bash
+pnpm test:ui
+```
+## Credit
+
+This library is heavily inspired by the work done by [MohsenAlyafei](https://github.com/MohsenAlyafei) and [Khawarizmus](https://github.com/khawarizmus) on the [Hijri Week Calendar](https://github.com/khawarizmus/hijri-week-calendar)
 
 ## License
 

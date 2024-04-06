@@ -1,85 +1,93 @@
-# Why this library?
+# Getting Started
 
-This page demonstrates some of the built-in markdown extensions provided by VitePress.
+## Overview
 
-## Syntax Highlighting
+`week-dates` is a utility library for working with week dates according [ISO week date](https://en.wikipedia.org/wiki/ISO_week_date) (ISO 8601) and [Hijri week calendars](https://github.com/khawarizmus/hijri-week-calendar)  (Hijri week date) using Temporal.
 
-VitePress provides Syntax Highlighting powered by [Shiki](https://github.com/shikijs/shiki), with additional features like line-highlighting:
+For insights into the motivation and features of this project, visit the [Why week-dates](./introduction.md#why) section.
 
-**Input**
+## Trying `week-dates` online
 
-````md
-```js{4}
-export default {
-  data () {
-    return {
-      msg: 'Highlighted!'
-    }
-  }
-}
-```
-````
-
-**Output**
-
-```js{4}
-export default {
-  data () {
-    return {
-      msg: 'Highlighted!'
-    }
-  }
-}
-```
-
-## Custom Containers
-
-**Input**
-
-```md
-::: info
-This is an info box.
-:::
+Experience `week-dates` without any installation via our [StackBlitz Playground](https://stackblitz.com/edit/prayer-ts?file=src%2FPrayerTimes.ts&terminal=dev). This browser-based environment closely mimics a local setup, allowing you to test the library's features effortlessly.
 
 ::: tip
-This is a tip.
+The version of `week-dates` on StackBlitz may not be up-to-date. To try the latest features, update the dependency in the `package.json` file within the StackBlitz environment.
 :::
 
-::: warning
-This is a warning.
-:::
+## Adding `week-dates` to Your Project
 
-::: danger
-This is a dangerous warning.
-:::
+You have multiple options for integrating week-dates into your project:
 
-::: details
-This is a details block.
-:::
+### Package Managers
+
+Install using npm, yarn, pnpm, or bun:
+
+#### npm
+
+```bash
+npm i week-dates
 ```
 
-**Output**
+#### yarn
 
-::: info
-This is an info box.
-:::
+```bash
+yarn add week-dates
+```
+
+#### pnpm
+
+```bash
+pnpm add week-dates
+```
+
+#### bun
+
+```bash
+bun add week-dates
+```
+
+### CDN
+
+Include week-dates via a CDN by adding the following script tag to your HTML:
+
+```html
+<script src="https://unpkg.com/week-dates/dist/index.cjs"></script>
+```
+
+We are using [unpkg](https://unpkg.com) in this example, but other CDNs like [jsdelivr](https://www.jsdelivr.com/) or [cdnjs](https://cdnjs.com/) works as well. Alternatively, you can download and serve the file yourself.
+
+### Deno
+
+For Deno users, week-dates is available on [deno.land/x](https://deno.land/x). Import the latest version or a specific version as follows:
+
+#### Latest Version:
+
+```ts
+import { StaticCalculator } from 'https://deno.land/x/week-dates'
+```
+
+#### Specific Version:
+
+```ts
+import { StaticCalculator } from 'https://deno.land/x/week-dates@v1.1.0'
+```
 
 ::: tip
-This is a tip.
+The rest of this documentation assumes you are using npm/yarn/pnpm/bun and importing directly from the `week-dates` package.
 :::
 
-::: warning
-This is a warning.
-:::
+## Basic Usage
 
-::: danger
-This is a dangerous warning.
-:::
+Here's a quick example to get you started with the StaticCalculator for one-time prayer time calculations:
 
-::: details
-This is a details block.
-:::
+```ts
+import { PlainWeekDate } from 'week-dates'
 
-## More
+const weekDate = PlainWeekDate.from({ yearOfWeek: 2021, weekOfYear: 1, dayOfWeek: 1, })
+console.log(weekDate.toString()) // 2021-W01-01
+console.log(weekDate.toPlainDate().toString()) // 2021-01-04
 
-Check out the documentation for the [full list of markdown extensions](https://vitepress.dev/guide/markdown).
+const plainDate = Temporal.PlainDate.from({ year: 2021, month: 1, day: 4 })
+const weekDate2 = PlainWeekDate.from(plainDate)
+console.log(weekDate2.toString()) // 2021-W01-01
+```

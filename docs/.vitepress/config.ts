@@ -26,7 +26,7 @@ export default defineConfig({
 
     footer: {
       message: 'Released under the MIT License.',
-      copyright: `Copyright © 2024-${new Date().getFullYear()} Whiterock tech`,
+      copyright: `Copyright © 2024-${new Date().getFullYear()} Zaman`,
     },
 
     externalLinkIcon: true,
@@ -90,22 +90,29 @@ function sidebarGuide() {
       ],
     },
     {
-      text: 'Primitives',
+      text: 'Classes',
       collapsible: true,
       items: [
-        { text: 'Introduction', link: '/guide/introduction' },
-        { text: 'Conversion', link: '/guide/introduction' },
-        { text: 'Formatting', link: '/guide/getting-started' },
-        { text: 'Utils', link: '/guide/getting-started' },
+        { text: 'PlainWeekDate', link: '/classes/plain-week-date' },
       ],
     },
     {
       text: 'Calendars',
       collapsible: true,
       items: [
-        { text: 'Introduction', link: '/guide/introduction' },
-        { text: 'ISO Extended Calendar', link: '/guide/concepts' },
-        { text: 'HWC Extended Calendar', link: '/guide/concepts' },
+        { text: 'Introduction', link: '/calendars/introduction' },
+        { text: 'ISO Extended Calendar', link: '/calendars/iso-extended' },
+        { text: 'HWC Extended Calendars', link: '/calendars/hwc-calendars' },
+      ],
+    },
+    {
+      text: 'Primitives',
+      collapsible: true,
+      items: [
+        { text: 'Introduction', link: '/primitives/introduction' },
+        { text: 'Conversion', link: '/primitives/conversions' },
+        { text: 'Formatting', link: '/primitives/formatting' },
+        { text: 'Utils', link: '/primitives/utils' },
       ],
     },
     {

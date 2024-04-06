@@ -4,7 +4,7 @@ layout: home
 
 hero:
   name: "Week Dates"
-  text: Working with week dates made simple
+  text: Made simple
   tagline: Utilities for working with ISO week dates and Hijri week dates using Temporal
   actions:
     - theme: brand

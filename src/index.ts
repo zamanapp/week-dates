@@ -3,11 +3,16 @@ import type { ExtendedCalendarProtocol } from './common/calendars'
 
 export {
   PlainWeekDate,
+} from './plainWeekDate'
+
+export type {
   PlainWeekDateLike,
+  PlainWeekDateFields,
   PlainWeekDateReference,
   Reference,
   ToStringOptions,
 } from './plainWeekDate'
+
 export {
   ISOExtended,
   temporalInstantFromISOWeek,
@@ -15,6 +20,7 @@ export {
   temporalToISOPlainDateWeek,
   weeksInISOYear,
 } from './iso'
+
 export {
   HWCCivil,
   HWCTbla,
@@ -24,7 +30,15 @@ export {
   temporalToHWCPlainDateWeek,
   weeksInHijriYear,
 } from './hwc'
+
 export {
+  getCalendarFormId,
+  getCalendarSuperId,
+  getScaleFromCalendarId,
+  isSupportedCalendar,
+} from './common/calendars'
+
+export type {
   Scale,
   Scales,
   SupportedCalendars,
@@ -32,27 +46,28 @@ export {
   SupportedNativeCalendars,
   SupportedNativeGregorianCalendars,
   SupportedNativeHijriCalendars,
-  getCalendarFormId,
-  getCalendarSuperId,
-  getScaleFromCalendarId,
-  isSupportedCalendar,
 } from './common/calendars'
+
 export {
-  HWCWeekDays,
   HWCWeekDaysCodeNames,
-  HWCWeekDaysCodes,
   HWCWeekDaysNames,
   HWCtoISODay,
   ISODayToHWCDay,
-  ISOWeekDays,
   ISOWeekDaysCodeNames,
-  ISOWeekDaysCodes,
   ISOWeekDaysNames,
   getWeekDayCodeName,
   getWeekDayCodeNumber,
   getWeekDayName,
   getWeekDayNumber,
 } from './common/weekDays'
+
+export type {
+  HWCWeekDays,
+  HWCWeekDaysCodes,
+  ISOWeekDays,
+  ISOWeekDaysCodes,
+} from './common/weekDays'
+
 export {
   instantToOtherTemporal,
   weekDatePartsFromString,
