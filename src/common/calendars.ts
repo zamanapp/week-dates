@@ -1,6 +1,7 @@
 import type { Temporal } from '@js-temporal/polyfill'
 import { ISOExtended } from '../iso/isoExtended'
-import { HWCUmalquraExtended } from '../hwc'
+import { HWCCivil, HWCTbla, HWCUmalqura } from '../hwc'
+import type { PlainWeekDate } from '../plainWeekDate'
 import type { HWCWeekDays, ISOWeekDays } from './weekDays'
 
 export enum Scales {
@@ -19,8 +20,11 @@ export function getCalendarFormId(id: SupportedCalendars, weekStartDay: HWCWeekD
   if (id === 'iso-extended')
     return new ISOExtended(weekStartDay as ISOWeekDays)
   else if (id === 'hwc-islamic-umalqura')
-    return new HWCUmalquraExtended(weekStartDay as HWCWeekDays)
-    // TODO: add more calendars
+    return new HWCUmalqura(weekStartDay as HWCWeekDays)
+  else if (id === 'hwc-islamic-civil')
+    return new HWCCivil(weekStartDay as HWCWeekDays)
+  else if (id === 'hwc-islamic-tbla')
+    return new HWCTbla(weekStartDay as HWCWeekDays)
   else
     return id
 }
@@ -51,4 +55,9 @@ export function getScaleFromCalendarId(id: SupportedCalendars): Scale {
 
 export function isSupportedCalendar(id: string): id is SupportedCalendars {
   return ['iso-extended', 'hwc-islamic-umalqura', 'hwc-islamic-civil', 'hwc-islamic-tbla', 'iso8601', 'gregorian', 'islamic-umalqura', 'islamic-civil', 'islamic-tbla'].includes(id)
+}
+
+export interface ExtendedCalendarProtocol extends Temporal.CalendarProtocol {
+  weeksInYear: (date: string | Temporal.PlainDate | Temporal.PlainDateTime | Temporal.PlainDateLike) => number
+  weekDate: (date: string | Temporal.PlainDate | Temporal.PlainDateTime | Temporal.PlainDateLike) => PlainWeekDate
 }

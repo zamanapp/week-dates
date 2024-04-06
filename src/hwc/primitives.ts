@@ -90,8 +90,8 @@ export function temporalToHWCPlainDateWeek(
 
   const dow = ISODayToHWCDay(date.dayOfWeek, weekStartDay)
   const pivotDate = date.add({ days: 4 - dow }) // get the pivot day of the week
-  const yowStart = Temporal.PlainDate.from({ year: pivotDate.year, month: 1, day: 1, calendar })
-  const woy = Math.ceil((pivotDate.since(yowStart).days + 1) / 7) // calculate HWC week number
+  const yowStart = pivotDate.with({ month: 1, day: 1 })
+  const woy = Math.ceil((pivotDate.since(yowStart, { largestUnit: 'days' }).days + 1) / 7) // calculate HWC week number
 
   return new PlainWeekDate(pivotDate.year, woy, dow, calendar, weekStartDay)
 }

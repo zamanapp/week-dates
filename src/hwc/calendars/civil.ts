@@ -15,14 +15,6 @@ export class HWCCivil extends Temporal.Calendar {
     this.weekStartDay = weekStartDay
   }
 
-  toJSON(): string {
-    return this.id
-  }
-
-  toString(): string {
-    return this.id
-  }
-
   // this will return the day of the week in the HWC representation
   dayOfWeek(date: string | Temporal.PlainDate | Temporal.PlainDateTime | Temporal.PlainDateLike): number {
     const Hdate = Temporal.PlainDate.from(date).withCalendar(this.superId)
@@ -39,24 +31,28 @@ export class HWCCivil extends Temporal.Calendar {
     return temporalToHWCPlainDateWeek(Hdate, this.weekStartDay).weekOfYear
   }
 
+  // custom accessors
   weeksInYear(date: string | Temporal.PlainDate | Temporal.PlainDateTime | Temporal.PlainDateLike): number {
     const Hdate = Temporal.PlainDate.from(date)
     return weeksInHijriYear(Hdate.year, this.superId, this.weekStartDay)
   }
 
-  toPlainWeekDate(date: string | Temporal.PlainDate | Temporal.PlainDateTime | Temporal.PlainDateLike): PlainWeekDate {
+  weekDate(date: string | Temporal.PlainDate | Temporal.PlainDateTime | Temporal.PlainDateLike): PlainWeekDate {
     return PlainWeekDate.from(Temporal.PlainDate.from(date), {
       calendar: this.id as 'hwc-islamic-civil',
       weekStartDay: this.weekStartDay,
     })
   }
 
-  // this is deprecated in favor of using withCalendar in PlainWeekDate
-  // toISOWeek(start: ISOWeekDays = ISOWeekDays.Monday) {
-  //   // use the weekStartDay
-  // }
-
   // overriding base calendar logic to use this calendar
+  toJSON(): string {
+    return this.id
+  }
+
+  toString(): string {
+    return this.id
+  }
+
   dateFromFields(fields: Temporal.YearOrEraAndEraYear & Temporal.MonthOrMonthCode & { day: number }, options?: Temporal.AssignmentOptions | undefined): Temporal.PlainDate {
     const native = Temporal.PlainDate.from({ ...fields, calendar: 'islamic-civil' }, options)
     return native.withCalendar(this)

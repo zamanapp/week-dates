@@ -206,8 +206,8 @@ export function temporalToISOPlainDateWeek(
   // get the day of the week
   const dow = getWeekDayNumber(date.dayOfWeek, Scales.Gregorian, weekStartDay)
   const pivotDate = date.add({ days: 4 - dow }) // get the pivot day of the week
-  const yowStart = new Temporal.PlainDate(pivotDate.year, 1, 1)
-  const woy = Math.ceil((pivotDate.since(yowStart).days + 1) / 7)
+  const yowStart = pivotDate.with({ month: 1, day: 1 })
+  const woy = Math.ceil((pivotDate.since(yowStart, { largestUnit: 'days' }).days + 1) / 7)
 
   // Day of week as 1-7
   return new PlainWeekDate(pivotDate.year, woy, dow, 'iso8601', weekStartDay)

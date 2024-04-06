@@ -10,9 +10,9 @@ export interface ToStringOptions {
   // don't show the day of the week
   shortForm?: boolean
   // control if the calendar name should be shown
-  calendarName: 'auto' | 'never' | 'always'
+  calendarName?: 'auto' | 'never' | 'always'
   // control if the week start day should be shown
-  weekStartDay: 'auto' | 'never' | 'always'
+  weekStartDay?: 'auto' | 'never' | 'always'
 }
 
 export interface Reference {
@@ -32,6 +32,14 @@ export interface PlainWeekDateLike {
   calendarId?: SupportedCalendars
   weekStartDay?: HWCWeekDays | ISOWeekDays
   options?: ToStringOptions
+}
+
+export interface PlainWeekDateFields {
+  yearOfWeek: number
+  weekOfYear: number
+  dayOfWeek: number
+  calendarId: SupportedCalendars
+  weekStartDay: HWCWeekDays | ISOWeekDays
 }
 
 export class PlainWeekDate {
@@ -56,6 +64,7 @@ export class PlainWeekDate {
     this.weekOfYear = weekOfYear
     this.dayOfWeek = dayOfWeek
     this.scale = getScaleFromCalendarId(calendar)
+    this.calendarId = calendar
     this.options = Object.assign({
       shortForm: false,
       calendarName: 'auto',
@@ -78,19 +87,10 @@ export class PlainWeekDate {
     if (dayOfWeek < this.MIN_DAY || dayOfWeek > this.MAX_DAY)
       throw new RangeError(`Invalid day of week: ${dayOfWeek} value must be >= ${this.MIN_DAY} and <= ${this.MAX_DAY}`)
 
-    if (calendar) {
-      if (this.scale === 'Gregorian' && !['iso8601', 'gregorian', 'iso-extended'].includes(calendar))
-        throw new Error('Invalid calendar for Gregorian scale')
-
-      this.calendarId = calendar
-    }
-    else {
-      if (this.scale === 'Hijri')
-        this.calendarId = 'islamic-umalqura'
-      else
-        this.calendarId = 'iso8601'
-    }
+    // checking for week start day
     if (weekStartDay) {
+      if (weekStartDay < 1 || weekStartDay > 7)
+        throw new RangeError(`Invalid week start day: ${weekStartDay} value must be >= 1 and <= 7`)
       this.weekStartDay = weekStartDay
     }
     else {
@@ -101,30 +101,42 @@ export class PlainWeekDate {
     }
   }
 
+  weekDateFields(): PlainWeekDateFields {
+    return {
+      yearOfWeek: this.yearOfWeek,
+      weekOfYear: this.weekOfYear,
+      dayOfWeek: this.dayOfWeek,
+      calendarId: this.calendarId,
+      weekStartDay: this.weekStartDay,
+    }
+  }
+
+  // TODO: document that the calendar part will always display the super id not the actual calendar id
   // string format: "yyyy-Www-d"
   toString(options?: ToStringOptions) {
-    const optionsToUse = options ? Object.assign({}, this.options, options) : this.options // Fix: Assign merged options to a new object
+    const optionsToUse = options ? Object.assign({}, this.options, options) : this.options
     const showWeekDay = optionsToUse.weekStartDay === 'always' || (optionsToUse.weekStartDay === 'auto' && this.weekStartDay !== 1)
     const showCalendar = optionsToUse.calendarName === 'always' || (optionsToUse.calendarName === 'auto' && this.calendarId !== 'iso8601')
+
     if (optionsToUse.shortForm)
-      return `${this.yearOfWeek}-W${(`${this.weekOfYear}`).padStart(2, '0')}${showWeekDay ? `[${getWeekDayCodeName(this.weekStartDay, getScaleFromCalendarId(this.calendarId))}]` : ''}${showCalendar ? `[u-ca=${this.calendarId}]` : ''}`
+      return `${this.yearOfWeek}-W${(`${this.weekOfYear}`).padStart(2, '0')}${showCalendar ? `[u-ca=${getCalendarSuperId(this.calendarId)}]` : ''}${showWeekDay ? `[${getWeekDayCodeName(this.weekStartDay, getScaleFromCalendarId(this.calendarId))}]` : ''}`
     else
-      return `${this.yearOfWeek}-W${(`${this.weekOfYear}`).padStart(2, '0')}-${this.dayOfWeek}${showWeekDay ? `[${getWeekDayCodeName(this.weekStartDay, getScaleFromCalendarId(this.calendarId))}]` : ''}${showCalendar ? `[u-ca=${this.calendarId}]` : ''}`
+      return `${this.yearOfWeek}-W${(`${this.weekOfYear}`).padStart(2, '0')}-${this.dayOfWeek}${showCalendar ? `[u-ca=${getCalendarSuperId(this.calendarId)}]` : ''}${showWeekDay ? `[${getWeekDayCodeName(this.weekStartDay, getScaleFromCalendarId(this.calendarId))}]` : ''}`
   }
 
   // string format: "yyyyWwwd"
   toStringCompact(options?: ToStringOptions) {
     const optionsToUse = options ? Object.assign({}, this.options, options) : this.options
-    const showWeekDay = optionsToUse.weekStartDay === 'always' || (optionsToUse.weekStartDay === 'auto' && this.dayOfWeek !== 1)
+    const showWeekDay = optionsToUse.weekStartDay === 'always' || (optionsToUse.weekStartDay === 'auto' && this.weekStartDay !== 1)
     const showCalendar = optionsToUse.calendarName === 'always' || (optionsToUse.calendarName === 'auto' && this.calendarId !== 'iso8601')
     if (optionsToUse.shortForm)
-      return `${this.yearOfWeek}W${(`${this.weekOfYear}`).padStart(2, '0')}${showCalendar ? `[u-ca=${this.calendarId}]` : ''}${showWeekDay ? `[${getWeekDayCodeName(this.weekStartDay, getScaleFromCalendarId(this.calendarId))}]` : ''}`
+      return `${this.yearOfWeek}W${(`${this.weekOfYear}`).padStart(2, '0')}${showCalendar ? `[u-ca=${getCalendarSuperId(this.calendarId)}]` : ''}${showWeekDay ? `[${getWeekDayCodeName(this.weekStartDay, getScaleFromCalendarId(this.calendarId))}]` : ''}`
     else
-      return `${this.yearOfWeek}W${(`${this.weekOfYear}`).padStart(2, '0')}${this.dayOfWeek}${showCalendar ? `[u-ca=${this.calendarId}]` : ''}${showWeekDay ? `[${getWeekDayCodeName(this.weekStartDay, getScaleFromCalendarId(this.calendarId))}]` : ''}`
+      return `${this.yearOfWeek}W${(`${this.weekOfYear}`).padStart(2, '0')}${this.dayOfWeek}${showCalendar ? `[u-ca=${getCalendarSuperId(this.calendarId)}]` : ''}${showWeekDay ? `[${getWeekDayCodeName(this.weekStartDay, getScaleFromCalendarId(this.calendarId))}]` : ''}`
   }
 
   // calendar is ignored in the relativeTo parameter
-  toTemporalInstant(weekStartDay: HWCWeekDays | ISOWeekDays = this.weekStartDay, reference?: Reference): Temporal.Instant {
+  toInstant(weekStartDay: HWCWeekDays | ISOWeekDays = this.weekStartDay, reference?: Reference): Temporal.Instant {
     if (this.scale === 'Gregorian')
       return temporalInstantFromISOWeek(this.yearOfWeek, this.weekOfYear, this.dayOfWeek, weekStartDay as ISOWeekDays, reference)
     else
@@ -133,30 +145,25 @@ export class PlainWeekDate {
 
   toPlainDate(): Temporal.PlainDate {
     const calendar = getCalendarFormId(this.calendarId, this.weekStartDay)
-    return instantToOtherTemporal(this.toTemporalInstant(), new Temporal.PlainDate(this.yearOfWeek, 1, 1, calendar))
+    return instantToOtherTemporal(this.toInstant(), new Temporal.PlainDate(this.yearOfWeek, 1, 1, calendar))
   }
 
   toPlainDateTime(): Temporal.PlainDateTime {
     const calendar = getCalendarFormId(this.calendarId, this.weekStartDay)
-    return instantToOtherTemporal(this.toTemporalInstant(), new Temporal.PlainDateTime(this.yearOfWeek, 1, 1, 0, 0, 0, 0, 0, 0, calendar))
+    return instantToOtherTemporal(this.toInstant(), new Temporal.PlainDateTime(this.yearOfWeek, 1, 1, 0, 0, 0, 0, 0, 0, calendar))
   }
 
   toZonedDateTime(timeZone: Temporal.TimeZoneLike = 'UTC'): Temporal.ZonedDateTime {
     const calendar = getCalendarFormId(this.calendarId, this.weekStartDay)
-    return this.toTemporalInstant(this.weekStartDay).toZonedDateTime({
+    return this.toInstant(this.weekStartDay).toZonedDateTime({
       calendar,
       timeZone: 'UTC',
     }).withTimeZone(timeZone)
   }
 
-  sameScale(other: PlainWeekDate | Scale): boolean {
-    if (other instanceof PlainWeekDate)
-      return this.scale === other.scale
-    else
-      return this.scale === other
-  }
-
   withCalendar(calendarId: SupportedCalendars, weekStartDay?: HWCWeekDays | ISOWeekDays): PlainWeekDate {
+    if (this.calendarId === calendarId && this.weekStartDay === (weekStartDay || this.weekStartDay))
+      return this
     const newStart = weekStartDay || this.weekStartDay
     const calendar = getCalendarFormId(calendarId, newStart)
     const newDate = this.toPlainDate().withCalendar(calendar)
@@ -169,7 +176,17 @@ export class PlainWeekDate {
   }
 
   withWeekStartDay(weekStartDay: HWCWeekDays | ISOWeekDays): PlainWeekDate {
-    return new PlainWeekDate(this.yearOfWeek, this.weekOfYear, this.dayOfWeek, this.calendarId, weekStartDay)
+    // convert the date to the new week start day
+    if (this.weekStartDay === weekStartDay)
+      return this
+    const date = this.toPlainDate()
+    let newWeekDate
+    if (this.scale === 'Gregorian')
+      newWeekDate = temporalToISOPlainDateWeek(date, weekStartDay as ISOWeekDays)
+    else
+      newWeekDate = temporalToHWCPlainDateWeek(date, weekStartDay as HWCWeekDays)
+
+    return new PlainWeekDate(newWeekDate.yearOfWeek, newWeekDate.weekOfYear, newWeekDate.dayOfWeek, this.calendarId, weekStartDay)
   }
   // add with function
 
@@ -181,30 +198,41 @@ export class PlainWeekDate {
   static from(from: string | Temporal.PlainDate | Temporal.PlainDateTime | Temporal.ZonedDateTime | PlainWeekDate | PlainWeekDateLike, reference?: PlainWeekDateReference): PlainWeekDate {
     if (typeof from === 'string') {
       const [yow, woy, dow, cal, wkst] = weekDatePartsFromString(from)
-      return new PlainWeekDate(yow, woy, dow, reference?.calendar ?? cal, reference?.weekStartDay ?? wkst)
+      return new PlainWeekDate(yow, woy, dow, cal, wkst).withCalendar(reference?.calendar ?? cal, reference?.weekStartDay ?? wkst)
     }
     else if (from instanceof PlainWeekDate) {
       // if we have a calendar and weekStart we should use them to convert the PlainWeekDate to a new instance
-      return new PlainWeekDate(from.yearOfWeek, from.weekOfYear, from.dayOfWeek, reference?.calendar, reference?.weekStartDay ?? from.weekStartDay, from.options)
+      return new PlainWeekDate(from.yearOfWeek, from.weekOfYear, from.dayOfWeek, from.calendarId, from.weekStartDay, from.options).withCalendar(reference?.calendar ?? from.calendarId, reference?.weekStartDay ?? from.weekStartDay)
     }
     else if (from instanceof Temporal.PlainDate || from instanceof Temporal.PlainDateTime || from instanceof Temporal.ZonedDateTime) {
       const cal = getCalendarFormId(from.calendarId as SupportedHijriCalendars)
       let scale = getScaleFromCalendarId(from.calendarId as SupportedHijriCalendars)
+      // collect the weekStartDay from passed Temporal objects if they use extended calendars
+      const wkst = reference?.weekStartDay ?? from.weekStartDay ?? 1
       // if we have a calendar and weekStart we should use them to convert the date before returning a new instance
       if (reference?.calendar && reference.calendar !== cal) {
-        from = from.withCalendar(reference.calendar)
+        const refCal = getCalendarSuperId(reference.calendar)
+        from = from.withCalendar(refCal)
         scale = getScaleFromCalendarId(reference.calendar)
       }
-      // TODO: collect the weekStartDay from passed Temporal objects if they use extended calendars
       if (scale === 'Gregorian')
-        return temporalToISOPlainDateWeek(from, reference?.weekStartDay as ISOWeekDays ?? 1)
+        return temporalToISOPlainDateWeek(from, wkst)
       else
-        return temporalToHWCPlainDateWeek(from, reference?.weekStartDay as HWCWeekDays ?? 1)
+        return temporalToHWCPlainDateWeek(from, wkst)
     }
     else {
       // initialize a new PlainWeekDate object from the plain object
-      return new PlainWeekDate(from.yearOfWeek, from.weekOfYear, from.dayOfWeek ?? 1, from.calendarId ?? 'iso8601', from.weekStartDay ?? 1, from.options)
+      const cal = from.calendarId ?? 'iso8601'
+      const wkst = from.weekStartDay ?? 1
+      return new PlainWeekDate(from.yearOfWeek, from.weekOfYear, from.dayOfWeek ?? 1, cal, wkst, from.options).withCalendar(reference?.calendar ?? cal, reference?.weekStartDay ?? wkst)
     }
+  }
+
+  sameScale(other: PlainWeekDate | Scale): boolean {
+    if (other instanceof PlainWeekDate)
+      return this.scale === other.scale
+    else
+      return this.scale === other
   }
 
   static sameScale(one: PlainWeekDate, other: PlainWeekDate | Scale): boolean {
@@ -214,9 +242,14 @@ export class PlainWeekDate {
       return one.scale === other
   }
 
+  compare(other: string | PlainWeekDate | PlainWeekDateLike): Temporal.ComparisonResult {
+    const instantOther = PlainWeekDate.from(other)
+    return Temporal.Instant.compare(this.toInstant(), instantOther.toInstant())
+  }
+
   static compare(one: string | PlainWeekDate | PlainWeekDateLike, two: string | PlainWeekDate | PlainWeekDateLike): Temporal.ComparisonResult {
     const instantOne = PlainWeekDate.from(one)
     const instantTwo = PlainWeekDate.from(two)
-    return Temporal.Instant.compare(instantOne.toTemporalInstant(), instantTwo.toTemporalInstant())
+    return Temporal.Instant.compare(instantOne.toInstant(), instantTwo.toInstant())
   }
 }

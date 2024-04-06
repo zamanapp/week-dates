@@ -15,7 +15,7 @@ export class ISOExtended extends Temporal.Calendar {
     this.weekStartDay = weekStartDay
   }
 
-  // ISO accessors
+  // Override ISO accessors
   yearOfWeek(date: string | Temporal.PlainDate | Temporal.PlainDateTime | Temporal.PlainDateLike): number {
     const tDate = Temporal.PlainDate.from(date).withCalendar(this.superId)
     return temporalToISOPlainDateWeek(tDate, this.weekStartDay).yearOfWeek
@@ -31,12 +31,13 @@ export class ISOExtended extends Temporal.Calendar {
     return temporalToISOPlainDateWeek(tDate, this.weekStartDay).dayOfWeek
   }
 
+  // custom accessors
   weeksInYear(date: string | Temporal.PlainDate | Temporal.PlainDateTime | Temporal.PlainDateLike): number {
     const tDate = Temporal.PlainDate.from(date)
     return weeksInISOYear(tDate.year, this.weekStartDay)
   }
 
-  toPlainWeekDate(date: string | Temporal.PlainDate | Temporal.PlainDateTime | Temporal.PlainDateLike): PlainWeekDate {
+  weekDate(date: string | Temporal.PlainDate | Temporal.PlainDateTime | Temporal.PlainDateLike): PlainWeekDate {
     return PlainWeekDate.from(Temporal.PlainDate.from(date), {
       calendar: this.id as 'iso-extended',
       weekStartDay: this.weekStartDay,

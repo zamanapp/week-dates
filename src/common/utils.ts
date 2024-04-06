@@ -22,7 +22,6 @@ function throwErr(component: string) {
 export function weekDatePartsFromString(weekDateString: string): [number, number, number, SupportedCalendars, number] {
   if (typeof weekDateString !== 'string')
     throw new Error('Expected a string')
-
   // take away the weekStartDay and calendar if present
   const mainParts = weekDateString.split('[')
   let weekStartDay = 1

@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { Scales, getCalendarFormId, getCalendarSuperId, getScaleFromCalendarId, isSupportedCalendar } from '../../src/common/calendars'
 import { ISOExtended } from '../../src/iso/isoExtended'
 import { ISOWeekDays } from '../../src/common/weekDays'
+import { HWCCivil, HWCTbla, HWCUmalqura } from '../../src'
 
 describe('calendars utilities should work', () => {
   it('should get calendars properly', () => {
@@ -10,8 +11,15 @@ describe('calendars utilities should work', () => {
     expect(getCalendarFormId('islamic-umalqura')).toBe('islamic-umalqura')
     expect(getCalendarFormId('islamic-civil')).toBe('islamic-civil')
     expect(getCalendarFormId('islamic-tbla')).toBe('islamic-tbla')
-    // expect(getCalendarFormId('hwc-islamic-umalqura')).toBeInstanceOf(HWCUmalqura)
-    // expect((getCalendarFormId('hwc-islamic-umalqura', 2) as HWCUmalqura)).toBeInstanceOf(HWCUmalqura)
+    expect(getCalendarFormId('hwc-islamic-umalqura')).toBeInstanceOf(HWCUmalqura)
+    expect((getCalendarFormId('hwc-islamic-umalqura', 2) as HWCUmalqura)).toBeInstanceOf(HWCUmalqura)
+    expect((getCalendarFormId('hwc-islamic-umalqura', 2) as HWCUmalqura).weekStartDay).toBe(2)
+    expect(getCalendarFormId('hwc-islamic-civil')).toBeInstanceOf(HWCCivil)
+    expect((getCalendarFormId('hwc-islamic-civil', 3) as HWCCivil)).toBeInstanceOf(HWCCivil)
+    expect((getCalendarFormId('hwc-islamic-civil', 3) as HWCCivil).weekStartDay).toBe(3)
+    expect(getCalendarFormId('hwc-islamic-tbla')).toBeInstanceOf(HWCTbla)
+    expect((getCalendarFormId('hwc-islamic-tbla', 4) as HWCTbla)).toBeInstanceOf(HWCTbla)
+    expect((getCalendarFormId('hwc-islamic-tbla', 4) as HWCTbla).weekStartDay).toBe(4)
     expect(getCalendarFormId('iso-extended')).toBeInstanceOf(ISOExtended)
     expect((getCalendarFormId('iso-extended', ISOWeekDays.Tuesday) as ISOExtended).weekStartDay).toBe(ISOWeekDays.Tuesday)
   })
@@ -26,6 +34,7 @@ describe('calendars utilities should work', () => {
     expect(getCalendarSuperId('hwc-islamic-civil')).toBe('islamic-civil')
     expect(getCalendarSuperId('hwc-islamic-tbla')).toBe('islamic-tbla')
     expect(getCalendarSuperId('iso-extended')).toBe('iso8601')
+    // @ts-expect-error test invalid calendar
     expect(() => getCalendarSuperId('invalid')).toThrow()
   })
 
@@ -39,6 +48,7 @@ describe('calendars utilities should work', () => {
     expect(getScaleFromCalendarId('hwc-islamic-umalqura')).toBe(Scales.Hijri)
     expect(getScaleFromCalendarId('hwc-islamic-civil')).toBe(Scales.Hijri)
     expect(getScaleFromCalendarId('hwc-islamic-tbla')).toBe(Scales.Hijri)
+    // @ts-expect-error test invalid calendar
     expect(() => getScaleFromCalendarId('invalid')).toThrow()
   })
 
