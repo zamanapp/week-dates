@@ -20,31 +20,30 @@ You have multiple options for integrating week-dates into your project:
 
 ### Package Managers
 
-Install using npm, yarn, pnpm, or bun:
+Install using your favorite package manager:
 
-#### npm
+::: code-group
 
-```bash
+
+```bash [npm]
 npm i week-dates
 ```
 
-#### yarn
 
-```bash
+```bash [yarn]
 yarn add week-dates
 ```
 
-#### pnpm
 
-```bash
+```bash [pnpm]
 pnpm add week-dates
 ```
 
-#### bun
 
-```bash
+```bash [bun]
 bun add week-dates
 ```
+:::
 
 ### CDN
 

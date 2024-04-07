@@ -148,6 +148,7 @@ export class PlainWeekDate {
     return instantToOtherTemporal(this.toInstant(), new Temporal.PlainDate(this.yearOfWeek, 1, 1, calendar))
   }
 
+  // TODO: add support for the reference parameter to support time
   toPlainDateTime(): Temporal.PlainDateTime {
     const calendar = getCalendarFormId(this.calendarId, this.weekStartDay)
     return instantToOtherTemporal(this.toInstant(), new Temporal.PlainDateTime(this.yearOfWeek, 1, 1, 0, 0, 0, 0, 0, 0, calendar))

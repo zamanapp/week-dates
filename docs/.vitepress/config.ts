@@ -124,7 +124,7 @@ function sidebarGuide() {
       items: [
         { text: 'Introduction', link: '/calendars/introduction' },
         { text: 'ISO Extended Calendar', link: '/calendars/iso-extended' },
-        { text: 'HWC Extended Calendars', link: '/calendars/hwc-calendars' },
+        { text: 'Hijri Week Calendars', link: '/calendars/hwc-calendars' },
       ],
     },
     {
@@ -132,6 +132,7 @@ function sidebarGuide() {
       collapsible: true,
       items: [
         { text: 'Introduction', link: '/primitives/introduction' },
+        { text: 'Week days', link: '/primitives/week-days' },
         { text: 'Conversion', link: '/primitives/conversions' },
         { text: 'Formatting', link: '/primitives/formatting' },
         { text: 'Utils', link: '/primitives/utils' },

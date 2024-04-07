@@ -34,6 +34,21 @@ describe('utils should work as intended', () => {
     expect(() => weekDatePartsFromString('2021-W01-1[u-ca=iso-extended][invalid]')).toThrow()
     expect(() => weekDatePartsFromString('1444-W52-1[u-ca=islamic-umalqura]')).toThrow()
     expect(() => weekDatePartsFromString('1444-W53-1[u-ca=islamic-umalqura]')).toThrow()
+
+    // check compact format
+    expect(weekDatePartsFromString('2021W011')).toEqual([2021, 1, 1, 'iso8601', ISOWeekDays.Monday])
+    expect(weekDatePartsFromString('2021W011[u-ca=iso-extended]')).toEqual([2021, 1, 1, 'iso-extended', ISOWeekDays.Monday])
+    expect(weekDatePartsFromString('2021W011[u-ca=iso-extended][SA]')).toEqual([2021, 1, 1, 'iso-extended', ISOWeekDays.Saturday])
+    expect(weekDatePartsFromString('2021W011[SA]')).toEqual([2021, 1, 1, 'iso8601', ISOWeekDays.Saturday])
+    expect(weekDatePartsFromString('1443W011[u-ca=islamic-umalqura]')).toEqual([1443, 1, 1, 'islamic-umalqura', HWCWeekDays.Saturday])
+    expect(weekDatePartsFromString('1443W011[u-ca=islamic-umalqura][MO]')).toEqual([1443, 1, 1, 'islamic-umalqura', HWCWeekDays.Monday])
+    // check weeks boundaries
+    expect(weekDatePartsFromString('2021W531')).toEqual([2021, 53, 1, 'iso8601', ISOWeekDays.Monday])
+    expect(weekDatePartsFromString('2021W53')).toEqual([2021, 53, 1, 'iso8601', ISOWeekDays.Monday])
+    expect(weekDatePartsFromString('2022W521')).toEqual([2022, 52, 1, 'iso8601', ISOWeekDays.Monday])
+    expect(weekDatePartsFromString('1443W501[u-ca=islamic-umalqura]')).toEqual([1443, 50, 1, 'islamic-umalqura', HWCWeekDays.Saturday])
+    expect(weekDatePartsFromString('1443W50[u-ca=islamic-umalqura]')).toEqual([1443, 50, 1, 'islamic-umalqura', HWCWeekDays.Saturday])
+    expect(weekDatePartsFromString('1444W51[u-ca=islamic-umalqura]')).toEqual([1444, 51, 1, 'islamic-umalqura', HWCWeekDays.Saturday])
   })
 
   it('should convert a Temporal Instant to any other Temporal object', () => {
