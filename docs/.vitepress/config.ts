@@ -124,7 +124,7 @@ function sidebarGuide() {
       items: [
         { text: 'Introduction', link: '/calendars/introduction' },
         { text: 'ISO Extended Calendar', link: '/calendars/iso-extended' },
-        { text: 'Hijri Week Calendars', link: '/calendars/hwc-calendars' },
+        { text: 'Hijri Week Calendars', link: '/calendars/hijri-week-calendars' },
       ],
     },
     {
