@@ -2,6 +2,7 @@
   "name": "@zamanapp/week-dates",
   "type": "module",
   "version": "1.0.1",
+  "private": false,
   "packageManager": "pnpm@8.15.3",
   "description": "Utilities for working with week dates according ISO 8601 (ISO week date) and Hijri week calendars (Hijri week date) using Temporal.",
   "author": "khawarizmus <amine@zaman.app>",
