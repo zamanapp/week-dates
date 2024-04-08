@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/zamanapp/week-dates/compare/v1.0.1...v1.0.2) (2024-04-08)
+
+
+### Bug Fixes
+
+* make the package public ([523ae5d](https://github.com/zamanapp/week-dates/commit/523ae5d9116ac479e2fdbe0a9450fbacae3a1a8f))
+
 ## [1.0.1](https://github.com/zamanapp/week-dates/compare/v1.0.0...v1.0.1) (2024-04-08)
 
 
