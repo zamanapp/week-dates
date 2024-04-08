@@ -3,6 +3,9 @@
   "type": "module",
   "version": "1.0.2",
   "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "packageManager": "pnpm@8.15.3",
   "description": "Utilities for working with week dates according ISO 8601 (ISO week date) and Hijri week calendars (Hijri week date) using Temporal.",
   "author": "khawarizmus <amine@zaman.app>",
