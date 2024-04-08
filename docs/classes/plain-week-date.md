@@ -45,7 +45,7 @@ Unlike other Temporal classes, the `PlainWeekDate` constructor accepts calendar-
 :::
 
 ```ts twoslash
-import { PlainWeekDate } from "week-dates";
+import { PlainWeekDate } from "@zamanapp/week-dates";
 // ---cut---
 const weekDate = new PlainWeekDate(2021, 1, 1);
 const hijriWeekDate = new PlainWeekDate(1442, 1, 1, "islamic-umalqura");
@@ -78,7 +78,7 @@ The `reference` argument allows you to pass a `weekStartDay` value or a `calenda
 Example usage:
 
 ```ts twoslash
-import { PlainWeekDate } from "week-dates";
+import { PlainWeekDate } from "@zamanapp/week-dates";
 import { Temporal } from "@js-temporal/polyfill";
 // ---cut---
 
@@ -122,7 +122,7 @@ This method returns `true` if the two `PlainWeekDate` objects are in the same sc
 Example usage:
 
 ```ts twoslash
-import { PlainWeekDate, Scales } from "week-dates";
+import { PlainWeekDate, Scales } from "@zamanapp/week-dates";
 // ---cut---
 const one = new PlainWeekDate(2021, 1, 1)
 const two = new PlainWeekDate(2021, 2, 2, 'iso-extended')
@@ -149,7 +149,7 @@ The comparison is done by converting both `one` and `two` to `Temporal.Instant` 
 Example usage:
 
 ```ts twoslash
-import { PlainWeekDate } from "week-dates";
+import { PlainWeekDate } from "@zamanapp/week-dates";
 // ---cut---
 const one = new PlainWeekDate(2021, 1, 1)
 const two = new PlainWeekDate(2021, 2, 2)
@@ -174,7 +174,7 @@ In week dates the `yearOfWeek` is not always the same as the year of the corresp
 :::
 
 ```ts twoslash
-import { PlainWeekDate } from "week-dates";
+import { PlainWeekDate } from "@zamanapp/week-dates";
 // ---cut---
 const weekDate = new PlainWeekDate(2021, 1, 1);
 const hijriWeekDate = new PlainWeekDate(1442, 1, 1, "islamic-umalqura");
@@ -194,7 +194,7 @@ Long years can have `53` weeks in the Gregorian calendar and `51` weeks in the H
 Short years can have `52` weeks in the Gregorian calendar and `50` weeks in the Hijri calendar. The number of weeks in a year is determined by the calendar and the week start day used.
 
 ```ts twoslash
-import { PlainWeekDate } from "week-dates";
+import { PlainWeekDate } from "@zamanapp/week-dates";
 // ---cut---
 const weekDate = new PlainWeekDate(2022, 52, 7);
 const hijriWeekDate = new PlainWeekDate(1442, 1, 1, "islamic-umalqura");
@@ -210,7 +210,7 @@ console.log(hijriWeekDate.weekOfYear); // 1
 This is the day part of the week date. The range of the day is `[1, 7]` where `1` is the first day of the week and `7` is the last day of the week.
 
 Gregorian weeks start on Monday and end on Sunday. While, Hijri weeks start on Saturday and end on Friday.
-`week-dates` offer helpers to work with week days see [week days](../primitives/utils#weekdays).
+`@zamanapp/week-dates` offer helpers to work with week days see [week days](../primitives/utils#weekdays).
 
 | Day | Gregorian | Hijri |
 |-----|-----------|-------|
@@ -227,7 +227,7 @@ The `dayOfWeek` property is always mapped to the day of the week date calendar s
 The `dayOfWeek` property is determined by the week start day used. The default week start day is `1` which would be Monday for the Gregorian calendar and Saturday for the Hijri calendar.
 
 ```ts twoslash
-import { PlainWeekDate, Scales, getWeekDayName, ISOWeekDays } from "week-dates";
+import { PlainWeekDate, Scales, getWeekDayName, ISOWeekDays } from "@zamanapp/week-dates";
 
 const weekDate = new PlainWeekDate(2021, 1, 1);
 const hijriWeekDate = new PlainWeekDate(1442, 1, 1, "islamic-umalqura");
@@ -254,7 +254,7 @@ getWeekDayName(customWeekDate.dayOfWeek, Scales.Gregorian, customWeekDate.weekSt
 This is the calendar id of the week date. The calendar id is a string that represents the calendar used in the week date. The default calendar is `iso8601`. For a full list of supported calendars see [supported calendars]().
 
 ```ts twoslash
-import { PlainWeekDate } from "week-dates";
+import { PlainWeekDate } from "@zamanapp/week-dates";
 // ---cut---
 const weekDate = new PlainWeekDate(2021, 1, 1);
 const hijriWeekDate = new PlainWeekDate(1442, 1, 1, "islamic-umalqura");
@@ -282,7 +282,7 @@ This is the week start day of the week date. The week start day is a number that
 The `weekStartDay` property is always mapped to the week start day of the week date calendar scale. If the calendar is not specified, the default calendar is `iso8601`.
 
 ```ts twoslash
-import { PlainWeekDate, ISOWeekDays, HWCWeekDays, Scales, getWeekDayName } from "week-dates";
+import { PlainWeekDate, ISOWeekDays, HWCWeekDays, Scales, getWeekDayName } from "@zamanapp/week-dates";
 
 const weekDate = new PlainWeekDate(2021, 1, 1);
 const hijriWeekDate = new PlainWeekDate(1442, 1, 1, "islamic-umalqura");
@@ -332,7 +332,7 @@ Here is a list of supported calendars with their corresponding scales:
 | hwc-islamic-civil | Hijri |
 
 ```ts twoslash
-import { PlainWeekDate } from "week-dates";
+import { PlainWeekDate } from "@zamanapp/week-dates";
 // ---cut---
 
 const weekDate = new PlainWeekDate(2021, 1, 1);
@@ -397,7 +397,7 @@ The `referenceTime` property is used to specify the time part of the `Temporal.I
 
 Example usage:
 ```ts twoslash
-import { PlainWeekDate } from "week-dates";
+import { PlainWeekDate } from "@zamanapp/week-dates";
 import { Temporal } from "@js-temporal/polyfill";
 // ---cut---
 
@@ -416,7 +416,7 @@ This method converts the `PlainWeekDate` object to a `Temporal.PlainDate` object
 
 Example usage:
 ```ts twoslash
-import { PlainWeekDate } from "week-dates";
+import { PlainWeekDate } from "@zamanapp/week-dates";
 // ---cut---
 
 const weekDate = new PlainWeekDate(2021, 1, 1);
@@ -434,7 +434,7 @@ This method converts the `PlainWeekDate` object to a `Temporal.PlainDateTime` ob
 
 Example usage:
 ```ts twoslash
-import { PlainWeekDate } from "week-dates";
+import { PlainWeekDate } from "@zamanapp/week-dates";
 // ---cut---
 
 const weekDate = new PlainWeekDate(2021, 1, 1);
@@ -454,7 +454,7 @@ The `timeZone` argument allows you to pass a timezone to be used when creating t
 
 Example usage:
 ```ts twoslash
-import { PlainWeekDate } from "week-dates";
+import { PlainWeekDate } from "@zamanapp/week-dates";
 // ---cut---
 
 const weekDate = new PlainWeekDate(2021, 1, 1);
@@ -474,7 +474,7 @@ When both `weekStartDay` and `calendarId` are passed, the `calendarId` value wil
 
 Example usage:
 ```ts twoslash
-import { PlainWeekDate, ISOWeekDays } from "week-dates";
+import { PlainWeekDate, ISOWeekDays } from "@zamanapp/week-dates";
 
 const weekDate = new PlainWeekDate(2021, 1, 1);
 const hijriWeekDate = new PlainWeekDate(1442, 1, 1, "islamic-umalqura");
@@ -492,7 +492,7 @@ This method returns a new `PlainWeekDate` object with the specified week start d
 
 Example usage:
 ```ts twoslash
-import { PlainWeekDate, ISOWeekDays } from "week-dates";
+import { PlainWeekDate, ISOWeekDays } from "@zamanapp/week-dates";
 
 const weekDate = new PlainWeekDate(2021, 1, 1);
 const hijriWeekDate = new PlainWeekDate(1442, 1, 1, "islamic-umalqura");
@@ -511,7 +511,7 @@ The comparison is done by converting both `PlainWeekDate` objects to `Temporal.I
 
 Example usage:
 ```ts twoslash
-import { PlainWeekDate } from "week-dates";
+import { PlainWeekDate } from "@zamanapp/week-dates";
 // ---cut---
 
 const one = new PlainWeekDate(2021, 1, 1)
@@ -550,7 +550,7 @@ The week date strings returned by the `PlainWeekDate.toString` is mapped to the 
 
 Example usage:
 ```ts twoslash
-import { PlainWeekDate } from "week-dates";
+import { PlainWeekDate } from "@zamanapp/week-dates";
 // ---cut---
 
 const weekDate = new PlainWeekDate(2021, 1, 1);
@@ -596,7 +596,7 @@ The week date strings returned by the `PlainWeekDate.toStringCompact` is mapped 
 
 Example usage:
 ```ts twoslash
-import { PlainWeekDate } from "week-dates";
+import { PlainWeekDate } from "@zamanapp/week-dates";
 // ---cut---
 
 const weekDate = new PlainWeekDate(2021, 1, 1);

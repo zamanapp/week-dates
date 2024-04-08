@@ -13,7 +13,22 @@
     "url": "git+https://github.com/zamanapp/week-dates.git"
   },
   "bugs": "https://github.com/zamanapp/week-dates/issues",
-  "keywords": [],
+  "keywords": [
+    "week-date",
+    "temporal",
+    "iso8601",
+    "hijri",
+    "iso",
+    "week",
+    "date",
+    "calendar",
+    "hijri-date",
+    "islamic",
+    "islamic-calendar",
+    "hijri-calendar",
+    "hijri-week",
+    "hijri-week-calendar"
+  ],
   "sideEffects": false,
   "exports": {
     ".": {
@@ -64,6 +79,8 @@
     "@antfu/ni": "^0.21.12",
     "@antfu/utils": "^0.7.7",
     "@npmcli/ci-detect": "^3.0.2",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
     "@shikijs/vitepress-twoslash": "^1.2.4",
     "@types/ms": "^0.7.34",
     "@types/node": "^20.11.19",

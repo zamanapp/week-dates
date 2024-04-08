@@ -6,7 +6,7 @@ import PropertiesDefinition from "../components/PropertiesDefinitions.vue"
 
 The Hijri week calendar is a counterpart to the ISO 8601 week calendar. For more information on the Hijri week calendar, see the [Hijri week calendar](https://github.com/khawarizmus/hijri-week-calendar-proposal) standard proposal.
 
-The `week-dates` library offers three custom calendars that extend the Temporal API with Hijri week date capabilities:
+The `@zamanapp/week-dates` library offers three custom calendars that extend the Temporal API with Hijri week date capabilities:
 
 | <div class="w-[160px]">Id</div> | <div class="w-[130px]">Extends</div> | Description |
 |----|---------|-------------|
@@ -25,7 +25,7 @@ Use the `HWCUmalqura` constructor to create a new instance of the `hwc-islamic-u
 Example usage
 
 ```ts twoslash
-import { HWCUmalqura, HWCWeekDays } from "week-dates";
+import { HWCUmalqura, HWCWeekDays } from "@zamanapp/week-dates";
 import { Temporal } from "@js-temporal/polyfill";
 
 const customCalendar = new HWCUmalqura()
@@ -44,7 +44,7 @@ Use the `HWCCivil` constructor to create a new instance of the `hwc-islamic-civi
 Example usage
 
 ```ts twoslash
-import { HWCCivil, HWCWeekDays } from "week-dates";
+import { HWCCivil, HWCWeekDays } from "@zamanapp/week-dates";
 import { Temporal } from "@js-temporal/polyfill";
 
 const customCalendar = new HWCCivil()
@@ -63,7 +63,7 @@ Use the `HWCTbla` constructor to create a new instance of the `hwc-islamic-tbla`
 Example usage
 
 ```ts twoslash
-import { HWCTbla, HWCWeekDays } from "week-dates";
+import { HWCTbla, HWCWeekDays } from "@zamanapp/week-dates";
 import { Temporal } from "@js-temporal/polyfill";
 
 const customCalendar = new HWCTbla()
@@ -101,7 +101,7 @@ declare module '@js-temporal/polyfill' {
 }
 // @filename: example.ts
 //---cut---
-import { HWCUmalqura, HWCWeekDays } from "week-dates";
+import { HWCUmalqura, HWCWeekDays } from "@zamanapp/week-dates";
 import { Temporal } from "@js-temporal/polyfill";
 
 const customCalendar = new HWCUmalqura()
@@ -131,7 +131,7 @@ declare module '@js-temporal/polyfill' {
 }
 // @filename: example.ts
 //---cut---
-import { HWCCivil, HWCWeekDays } from "week-dates";
+import { HWCCivil, HWCWeekDays } from "@zamanapp/week-dates";
 import { Temporal } from "@js-temporal/polyfill";
 
 const customCalendar = new HWCCivil()
@@ -161,7 +161,7 @@ declare module '@js-temporal/polyfill' {
 }
 // @filename: example.ts
 //---cut---
-import { HWCTbla, HWCWeekDays } from "week-dates";
+import { HWCTbla, HWCWeekDays } from "@zamanapp/week-dates";
 import { Temporal } from "@js-temporal/polyfill";
 
 const customCalendar = new HWCTbla()
@@ -204,7 +204,7 @@ declare module '@js-temporal/polyfill' {
 }
 // @filename: example.ts
 //---cut---
-import { HWCUmalqura, HWCWeekDays } from "week-dates";
+import { HWCUmalqura, HWCWeekDays } from "@zamanapp/week-dates";
 import { Temporal } from "@js-temporal/polyfill";
 
 const customCalendar = new HWCUmalqura()
@@ -234,7 +234,7 @@ declare module '@js-temporal/polyfill' {
 }
 // @filename: example.ts
 //---cut---
-import { HWCCivil, HWCWeekDays } from "week-dates";
+import { HWCCivil, HWCWeekDays } from "@zamanapp/week-dates";
 import { Temporal } from "@js-temporal/polyfill";
 
 const customCalendar = new HWCCivil()
@@ -264,7 +264,7 @@ declare module '@js-temporal/polyfill' {
 }
 // @filename: example.ts
 //---cut---
-import { HWCTbla, HWCWeekDays } from "week-dates";
+import { HWCTbla, HWCWeekDays } from "@zamanapp/week-dates";
 import { Temporal } from "@js-temporal/polyfill";
 
 const customCalendar = new HWCTbla()
@@ -306,7 +306,7 @@ declare module '@js-temporal/polyfill' {
 }
 // @filename: example.ts
 //---cut---
-import { HWCUmalqura, HWCWeekDays } from "week-dates";
+import { HWCUmalqura, HWCWeekDays } from "@zamanapp/week-dates";
 import { Temporal } from "@js-temporal/polyfill";
 
 const customCalendar = new HWCUmalqura()
@@ -335,7 +335,7 @@ declare module '@js-temporal/polyfill' {
 }
 // @filename: example.ts
 //---cut---
-import { HWCCivil, HWCWeekDays } from "week-dates";
+import { HWCCivil, HWCWeekDays } from "@zamanapp/week-dates";
 import { Temporal } from "@js-temporal/polyfill";
 
 const customCalendar = new HWCCivil()
@@ -364,7 +364,7 @@ declare module '@js-temporal/polyfill' {
 }
 // @filename: example.ts
 //---cut---
-import { HWCTbla, HWCWeekDays } from "week-dates";
+import { HWCTbla, HWCWeekDays } from "@zamanapp/week-dates";
 import { Temporal } from "@js-temporal/polyfill";
 
 const customCalendar = new HWCTbla()
@@ -409,7 +409,7 @@ declare module '@js-temporal/polyfill' {
 }
 // @filename: example.ts
 //---cut---
-import { HWCUmalqura, HWCWeekDays } from "week-dates";
+import { HWCUmalqura, HWCWeekDays } from "@zamanapp/week-dates";
 import { Temporal } from "@js-temporal/polyfill";
 
 const customCalendar = new HWCUmalqura()
@@ -437,7 +437,7 @@ declare module '@js-temporal/polyfill' {
 }
 // @filename: example.ts
 //---cut---
-import { HWCCivil, HWCWeekDays } from "week-dates";
+import { HWCCivil, HWCWeekDays } from "@zamanapp/week-dates";
 import { Temporal } from "@js-temporal/polyfill";
 
 const customCalendar = new HWCCivil()
@@ -465,7 +465,7 @@ declare module '@js-temporal/polyfill' {
 }
 // @filename: example.ts
 //---cut---
-import { HWCTbla, HWCWeekDays } from "week-dates";
+import { HWCTbla, HWCWeekDays } from "@zamanapp/week-dates";
 import { Temporal } from "@js-temporal/polyfill";
 
 const customCalendar = new HWCTbla()
@@ -505,7 +505,7 @@ declare module '@js-temporal/polyfill' {
 }
 // @filename: example.ts
 //---cut---
-import { HWCUmalqura, HWCWeekDays } from "week-dates";
+import { HWCUmalqura, HWCWeekDays } from "@zamanapp/week-dates";
 import { Temporal } from "@js-temporal/polyfill";
 
 const customCalendar = new HWCUmalqura()
@@ -533,7 +533,7 @@ declare module '@js-temporal/polyfill' {
 }
 // @filename: example.ts
 //---cut---
-import { HWCCivil, HWCWeekDays } from "week-dates";
+import { HWCCivil, HWCWeekDays } from "@zamanapp/week-dates";
 import { Temporal } from "@js-temporal/polyfill";
 
 const customCalendar = new HWCCivil()
@@ -561,7 +561,7 @@ declare module '@js-temporal/polyfill' {
 }
 // @filename: example.ts
 //---cut---
-import { HWCTbla, HWCWeekDays } from "week-dates";
+import { HWCTbla, HWCWeekDays } from "@zamanapp/week-dates";
 import { Temporal } from "@js-temporal/polyfill";
 
 const customCalendar = new HWCTbla()
@@ -606,7 +606,7 @@ declare module '@js-temporal/polyfill' {
 }
 // @filename: example.ts
 //---cut---
-import { HWCUmalqura, HWCWeekDays } from "week-dates";
+import { HWCUmalqura, HWCWeekDays } from "@zamanapp/week-dates";
 import { Temporal } from "@js-temporal/polyfill";
 
 const customCalendar = new HWCUmalqura()
@@ -635,7 +635,7 @@ declare module '@js-temporal/polyfill' {
 }
 // @filename: example.ts
 //---cut---
-import { HWCCivil, HWCWeekDays } from "week-dates";
+import { HWCCivil, HWCWeekDays } from "@zamanapp/week-dates";
 import { Temporal } from "@js-temporal/polyfill";
 
 const customCalendar = new HWCCivil()
@@ -664,7 +664,7 @@ declare module '@js-temporal/polyfill' {
 }
 // @filename: example.ts
 //---cut---
-import { HWCTbla, HWCWeekDays } from "week-dates";
+import { HWCTbla, HWCWeekDays } from "@zamanapp/week-dates";
 import { Temporal } from "@js-temporal/polyfill";
 
 const customCalendar = new HWCTbla()
@@ -686,7 +686,7 @@ Because of How the internals of Temporal work, the `HWC{Umalqura|Civil|Tbla}` ca
 A workaround this is to convert the date first before calling `toLocaleString` method.
 
 ```ts twoslash
-import { HWCUmalqura, ISOWeekDays } from "week-dates";
+import { HWCUmalqura, ISOWeekDays } from "@zamanapp/week-dates";
 import { Temporal } from "@js-temporal/polyfill";
 
 const customCalendar = new HWCUmalqura()

@@ -57,7 +57,7 @@ export default defineConfig({
       transformerTwoslash({
         twoslashOptions: {
           extraFiles: {
-            'week-dates.ts': fileContent,
+            '@zamanapp/week-dates.ts': fileContent,
           },
         }
       })
@@ -133,8 +133,8 @@ function sidebarGuide() {
       items: [
         { text: 'Introduction', link: '/primitives/introduction' },
         { text: 'Week days', link: '/primitives/week-days' },
-        { text: 'Conversion', link: '/primitives/conversions' },
-        { text: 'Parsing', link: '/primitives/formatting' },
+        { text: 'Conversion', link: '/primitives/conversion' },
+        { text: 'Parsing', link: '/primitives/parsing' },
         { text: 'Utils', link: '/primitives/utils' },
       ],
     },

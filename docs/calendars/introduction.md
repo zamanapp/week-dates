@@ -23,7 +23,7 @@ To have enhanced type checking and intellisense, you can declare the type of the
 /// <reference types="@js-temporal/polyfill" />
 
 import { Temporal } from '@js-temporal/polyfill'
-import { PlainWeekDate } from 'week-dates'
+import { PlainWeekDate } from '@zamanapp/week-dates'
 
 declare module '@js-temporal/polyfill' {
   namespace Temporal {

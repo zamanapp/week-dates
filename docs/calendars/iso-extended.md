@@ -19,7 +19,7 @@ Use the `ISOExtended` constructor to create a new instance of the `iso-extended`
 Example usage
 
 ```ts twoslash
-import { ISOExtended, ISOWeekDays } from "week-dates";
+import { ISOExtended, ISOWeekDays } from "@zamanapp/week-dates";
 import { Temporal } from "@js-temporal/polyfill";
 
 const customCalendar = new ISOExtended()
@@ -56,7 +56,7 @@ declare module '@js-temporal/polyfill' {
 }
 // @filename: example.ts
 //---cut---
-import { ISOExtended, ISOWeekDays } from "week-dates";
+import { ISOExtended, ISOWeekDays } from "@zamanapp/week-dates";
 import { Temporal } from "@js-temporal/polyfill";
 
 const customCalendar = new ISOExtended()
@@ -96,7 +96,7 @@ declare module '@js-temporal/polyfill' {
 }
 // @filename: example.ts
 //---cut---
-import { ISOExtended, ISOWeekDays } from "week-dates";
+import { ISOExtended, ISOWeekDays } from "@zamanapp/week-dates";
 import { Temporal } from "@js-temporal/polyfill";
 
 const customCalendar = new ISOExtended()
@@ -135,7 +135,7 @@ declare module '@js-temporal/polyfill' {
 }
 // @filename: example.ts
 //---cut---
-import { ISOExtended, ISOWeekDays } from "week-dates";
+import { ISOExtended, ISOWeekDays } from "@zamanapp/week-dates";
 import { Temporal } from "@js-temporal/polyfill";
 
 const customCalendar = new ISOExtended()
@@ -177,7 +177,7 @@ declare module '@js-temporal/polyfill' {
 }
 // @filename: example.ts
 //---cut---
-import { ISOExtended, ISOWeekDays } from "week-dates";
+import { ISOExtended, ISOWeekDays } from "@zamanapp/week-dates";
 import { Temporal } from "@js-temporal/polyfill";
 
 const customCalendar = new ISOExtended()
@@ -213,7 +213,7 @@ declare module '@js-temporal/polyfill' {
 }
 // @filename: example.ts
 //---cut---
-import { ISOExtended, ISOWeekDays } from "week-dates";
+import { ISOExtended, ISOWeekDays } from "@zamanapp/week-dates";
 import { Temporal } from "@js-temporal/polyfill";
 
 const customCalendar = new ISOExtended()
@@ -255,7 +255,7 @@ declare module '@js-temporal/polyfill' {
 }
 // @filename: example.ts
 //---cut---
-import { ISOExtended, ISOWeekDays } from "week-dates";
+import { ISOExtended, ISOWeekDays } from "@zamanapp/week-dates";
 import { Temporal } from "@js-temporal/polyfill";
 
 const customCalendar = new ISOExtended()
@@ -276,7 +276,7 @@ Because of How the internals of Temporal work, the `ISOExtended` calendar will n
 A workaround this is to convert the date first before calling `toLocaleString` method.
 
 ```ts twoslash
-import { ISOExtended, ISOWeekDays } from "week-dates";
+import { ISOExtended, ISOWeekDays } from "@zamanapp/week-dates";
 import { Temporal } from "@js-temporal/polyfill";
 
 const customCalendar = new ISOExtended()
