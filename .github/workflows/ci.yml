@@ -1,5 +1,8 @@
 name: CI
 
+permissions:
+  contents: write
+
 on:
   push:
     branches:
@@ -111,7 +114,6 @@ jobs:
           extra_plugins: |
             @semantic-release/changelog
             @semantic-release/git
-          node-version: lts/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

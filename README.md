@@ -54,7 +54,7 @@ pnpm test:ui
 ```
 ## Credit
 
-This library is heavily inspired by the work done by [MohsenAlyafei](https://github.com/MohsenAlyafei) and [Khawarizmus](https://github.com/khawarizmus) on the [Hijri Week Calendar](https://github.com/khawarizmus/hijri-week-calendar)
+This library is heavily inspired by the work done by [MohsenAlyafei](https://github.com/MohsenAlyafei) and [Khawarizmus](https://github.com/khawarizmus) on the [Hijri Week Calendar standard proposal](https://github.com/khawarizmus/hijri-week-calendar-proposal) and it's [JavaScript implementation](https://github.com/khawarizmus/hijri-week-calendar)
 
 ## License
 
