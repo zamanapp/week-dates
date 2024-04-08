@@ -4,7 +4,7 @@
 
 `@zamanapp/week-dates` is a utility library for working with week dates according [ISO week date](https://en.wikipedia.org/wiki/ISO_week_date) (ISO 8601) and [Hijri week calendars](https://github.com/khawarizmus/hijri-week-calendar)  (Hijri week date) using Temporal.
 
-For insights into the motivation and features of this project, visit the [Why week-dates](./introduction.md#why) section.
+For insights into the motivation and features of this project, visit the [Why week-dates](./introduction.md#why-this-library) section.
 
 ## Trying `@zamanapp/week-dates` online
 
