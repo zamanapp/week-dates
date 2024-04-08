@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/zamanapp/week-dates/compare/v1.0.0...v1.0.1) (2024-04-08)
+
+
+### Bug Fixes
+
+* fixed the build and trigerring an npm release ([00935bd](https://github.com/zamanapp/week-dates/commit/00935bd040e079ad4a1326985b193e4b8d24015c))
+
 # 1.0.0 (2024-04-08)
 
 
