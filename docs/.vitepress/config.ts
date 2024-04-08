@@ -134,7 +134,7 @@ function sidebarGuide() {
         { text: 'Introduction', link: '/primitives/introduction' },
         { text: 'Week days', link: '/primitives/week-days' },
         { text: 'Conversion', link: '/primitives/conversions' },
-        { text: 'Formatting', link: '/primitives/formatting' },
+        { text: 'Parsing', link: '/primitives/formatting' },
         { text: 'Utils', link: '/primitives/utils' },
       ],
     },

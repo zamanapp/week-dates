@@ -621,7 +621,7 @@ console.log(weekDateWithCustomStart.dayOfWeek) // 3 in a week that starts on Thu
 ```
 
 ```ts twoslash [Civil]
-/ @filename: index.d.ts
+// @filename: index.d.ts
 /// <reference types="@js-temporal/polyfill" />
 
 import { Temporal } from '@js-temporal/polyfill'
@@ -639,7 +639,7 @@ import { HWCCivil, HWCWeekDays } from "week-dates";
 import { Temporal } from "@js-temporal/polyfill";
 
 const customCalendar = new HWCCivil()
-const customCalendarWithStart = new HWCCivil(HWCWeekDays.Thusday)
+const customCalendarWithStart = new HWCCivil(HWCWeekDays.Thursday)
 
 const weekDate = Temporal.PlainDate.from({ year: 1442, month: 12, day: 28, calendar: customCalendar })
 const weekDateWithCustomStart = Temporal.PlainDate.from({ year: 1442, month: 12, day: 28, calendar: customCalendarWithStart })
@@ -650,7 +650,7 @@ console.log(weekDateWithCustomStart.dayOfWeek) // 3 in a week that starts on Thu
 ```
 
 ```ts twoslash [Tabular]
-/ @filename: index.d.ts
+// @filename: index.d.ts
 /// <reference types="@js-temporal/polyfill" />
 
 import { Temporal } from '@js-temporal/polyfill'
