@@ -113,7 +113,7 @@ export class PlainWeekDate {
 
   // TODO: document that the calendar part will always display the super id not the actual calendar id
   // string format: "yyyy-Www-d"
-  toString(options?: ToStringOptions) {
+  toString(options?: ToStringOptions): string {
     const optionsToUse = options ? Object.assign({}, this.options, options) : this.options
     const showWeekDay = optionsToUse.weekStartDay === 'always' || (optionsToUse.weekStartDay === 'auto' && this.weekStartDay !== 1)
     const showCalendar = optionsToUse.calendarName === 'always' || (optionsToUse.calendarName === 'auto' && this.calendarId !== 'iso8601')
@@ -125,7 +125,7 @@ export class PlainWeekDate {
   }
 
   // string format: "yyyyWwwd"
-  toStringCompact(options?: ToStringOptions) {
+  toStringCompact(options?: ToStringOptions): string {
     const optionsToUse = options ? Object.assign({}, this.options, options) : this.options
     const showWeekDay = optionsToUse.weekStartDay === 'always' || (optionsToUse.weekStartDay === 'auto' && this.weekStartDay !== 1)
     const showCalendar = optionsToUse.calendarName === 'always' || (optionsToUse.calendarName === 'auto' && this.calendarId !== 'iso8601')
