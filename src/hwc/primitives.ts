@@ -83,7 +83,7 @@ export function temporalInstantFromHWCWeekString(isoWeekDate: string, reference?
 export function temporalToHWCPlainDateWeek(
   date: Temporal.ZonedDateTime | Temporal.PlainDate | Temporal.PlainDateTime,
   weekStartDay = HWCWeekDays.Saturday,
-) {
+): PlainWeekDate {
   const calendar = date.calendarId as SupportedHijriCalendars
   if (!['hwc-islamic-umalqura', 'hwc-islamic-civil', 'hwc-islamic-tbla', 'islamic-umalqura', 'islamic-civil', 'islamic-tbla'].includes(calendar))
     throw new RangeError(`Unsupported Hijri calendar: ${calendar}`)

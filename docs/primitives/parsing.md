@@ -10,3 +10,5 @@ Parsing primitives are used to parse week dates from strings. They support diffe
 
 
 ## `weekDatePartsFromString`
+
+<PropertiesDefinition property="weekDatePartsFromString(weekDateString: string): [number, number, number, SupportedCalendars, number]" />

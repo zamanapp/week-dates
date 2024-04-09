@@ -2,13 +2,13 @@
 
 ## Overview
 
-`@zamanapp/week-dates` is a utility library for working with week dates according [ISO week date](https://en.wikipedia.org/wiki/ISO_week_date) (ISO 8601) and [Hijri week calendars](https://github.com/khawarizmus/hijri-week-calendar)  (Hijri week date) using Temporal.
+`@zamanapp/week-dates` is a utility library for working with week dates according [ISO week date](https://en.wikipedia.org/wiki/ISO_week_date) (ISO 8601) and [Hijri week calendars](https://github.com/khawarizmus/hijri-week-calendar-proposal)  (Hijri week date) using Temporal.
 
 For insights into the motivation and features of this project, visit the [Why week-dates](./introduction.md#why-this-library) section.
 
 ## Trying `@zamanapp/week-dates` online
 
-Experience `@zamanapp/week-dates` without any installation via our [StackBlitz Playground](https://stackblitz.com/edit/prayer-ts?file=src%2FPrayerTimes.ts&terminal=dev). This browser-based environment closely mimics a local setup, allowing you to test the library's features effortlessly.
+Experience `@zamanapp/week-dates` without any installation via our [StackBlitz Playground](https://stackblitz.com/edit/vitejs-vite-hhx4uq?file=src%2Fmain.ts). This browser-based environment closely mimics a local setup, allowing you to test the library's features effortlessly.
 
 ::: tip
 The version of `@zamanapp/week-dates` on StackBlitz may not be up-to-date. To try the latest features, update the dependency in the `package.json` file within the StackBlitz environment.

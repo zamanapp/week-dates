@@ -168,7 +168,7 @@ const customHijriToISOOffsets = [
 
 ] // Custom offsets for each day of the week
 
-export function ISODayToHWCDay(isoWeekday: number, HWCweekStartDay: HWCWeekDays = 1, ISOweekStartDay: ISOWeekDays = 1): number {
+export function ISODayToHWCDay(isoWeekday: number, HWCweekStartDay: HWCWeekDays = 1, ISOweekStartDay: ISOWeekDays = 1): HWCWeekDays {
   const offset = customHijriToISOOffsets[HWCweekStartDay - 1][ISOweekStartDay - 1]
   return (isoWeekday + offset) % 7 || 7
 }
@@ -184,7 +184,7 @@ const customISOToHijriOffsets = [
   [6, 7, 1, 2, 3, 4, 5], // ISO Sunday
 ]
 
-export function HWCtoISODay(HWCWeekday: number, ISOweekStartDay: ISOWeekDays = 1, HWCweekStartDay: HWCWeekDays = 1): number {
+export function HWCtoISODay(HWCWeekday: number, ISOweekStartDay: ISOWeekDays = 1, HWCweekStartDay: HWCWeekDays = 1): ISOWeekDays {
   const offset = customISOToHijriOffsets[ISOweekStartDay - 1][HWCweekStartDay - 1]
   return (HWCWeekday + offset) % 7 || 7
 }

@@ -53,7 +53,7 @@ export function getScaleFromCalendarId(id: SupportedCalendars): Scale {
     throw new Error('Invalid calendar')
 }
 
-export function isSupportedCalendar(id: string): id is SupportedCalendars {
+export function isSupportedCalendar(id: string): boolean {
   return ['iso-extended', 'hwc-islamic-umalqura', 'hwc-islamic-civil', 'hwc-islamic-tbla', 'iso8601', 'gregorian', 'islamic-umalqura', 'islamic-civil', 'islamic-tbla'].includes(id)
 }
 

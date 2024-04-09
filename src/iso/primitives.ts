@@ -150,7 +150,7 @@ function timeFromYear(year: number) {
   return dayFromYear(year) * MILLISECONDS_PER_DAY
 }
 
-export function weeksInISOYear(year: number, weekStartDay = ISOWeekDays.Monday) {
+export function weeksInISOYear(year: number, weekStartDay = ISOWeekDays.Monday): number {
   const lastDay = new Temporal.PlainYearMonth(year, 12).daysInMonth
   const date = new Temporal.PlainDate(year, 12, lastDay).subtract({ days: 3 })
   return temporalToISOPlainDateWeek(date, weekStartDay).weekOfYear

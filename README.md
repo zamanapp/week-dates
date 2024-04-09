@@ -6,7 +6,9 @@
 [![JSDocs][jsdocs-src]][jsdocs-href]
 [![License][license-src]][license-href]
 
-Utilities for working with week dates according [ISO week date](https://en.wikipedia.org/wiki/ISO_week_date) (ISO 8601) and [Hijri week calendars](https://github.com/khawarizmus/hijri-week-calendar-proposal)  (Hijri week date) using Temporal.
+Utilities for working with week dates according to [ISO week date](https://en.wikipedia.org/wiki/ISO_week_date) (ISO 8601) and [Hijri week calendars](https://github.com/khawarizmus/hijri-week-calendar-proposal)  (Hijri week date) using Temporal.
+
+[**Documentation**](https://week-dates.netlify.app/)
 
 Features:
 - Offer a new PlainWeekDate class to represent a week date
@@ -26,7 +28,7 @@ pnpm add week-dates
 
 ## Usage
 
-For detailed usage see the [Documentation]()
+For detailed usage see the [Documentation](https://week-dates.netlify.app/)
 
 ## Tests
 
@@ -62,13 +64,13 @@ This library is heavily inspired by the work done by [MohsenAlyafei](https://git
 
 <!-- Badges -->
 
-[npm-version-src]: https://img.shields.io/npm/v/week-dates?style=flat&colorA=080f12&colorB=1fa669
-[npm-version-href]: https://npmjs.com/package/week-dates
-[npm-downloads-src]: https://img.shields.io/npm/dm/week-dates?style=flat&colorA=080f12&colorB=1fa669
-[npm-downloads-href]: https://npmjs.com/package/week-dates
-[bundle-src]: https://img.shields.io/bundlephobia/minzip/week-dates?style=flat&colorA=080f12&colorB=1fa669&label=minzip
-[bundle-href]: https://bundlephobia.com/result?p=week-dates
+[npm-version-src]: https://img.shields.io/npm/v/@zamanapp/week-dates?style=flat&colorA=080f12&colorB=1fa669
+[npm-version-href]: https://npmjs.com/package/@zamanapp/week-dates
+[npm-downloads-src]: https://img.shields.io/npm/dm/@zamanapp/week-dates?style=flat&colorA=080f12&colorB=1fa669
+[npm-downloads-href]: https://npmjs.com/package/@zamanapp/week-dates
+[bundle-src]: https://img.shields.io/bundlephobia/minzip/@zamanapp/week-dates?style=flat&colorA=080f12&colorB=1fa669&label=minzip
+[bundle-href]: https://bundlephobia.com/result?p=@zamanapp/week-dates
 [license-src]: https://img.shields.io/github/license/zamanapp/week-dates.svg?style=flat&colorA=080f12&colorB=1fa669
 [license-href]: https://github.com/zamanapp/week-dates/blob/main/LICENSE
 [jsdocs-src]: https://img.shields.io/badge/jsdocs-reference-080f12?style=flat&colorA=080f12&colorB=1fa669
-[jsdocs-href]: https://www.jsdocs.io/package/week-dates
+[jsdocs-href]: https://www.jsdocs.io/package/@zamanapp/week-dates
