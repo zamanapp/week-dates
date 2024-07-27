@@ -50,4 +50,11 @@ console.log(weekDateWithCustomStart.yearOfWeek) // 2022
 console.log(weekDateC.weekOfYear) // 52
 console.log(weekDateWithCustomStart.weekOfYear) // 1
 console.log(weekDateC.dayOfWeek) // 1
-console.log(weekDateWithCustomStart.dayOfWeek) // 5
+console.log(weekDateWithCustomStart.dayOfWeek) // §
+
+const HWCdate = new PlainWeekDate(1445, 23, 6, 'islamic-civil')
+
+console.log(HWCdate.toPlainDate().toLocaleString('en', {
+  calendar: 'islamic-civil',
+  dateStyle: 'full',
+}))

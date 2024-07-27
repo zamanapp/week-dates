@@ -20,6 +20,9 @@ Features:
 - Parse dates in ISO week representation and Hijri week date representation
 - Offer custom Temporal calendars for both ISO 8601 and Hijri week calendars enhancing Temporal objects with week date capabilities
 
+> [!IMPORTANT]
+> As discussed in [tc39/proposal-temporal#2854](https://github.com/tc39/proposal-temporal/issues/2854), custom calendars support will be removed, and this library will be updated accordingly.
+
 ## Installation
 
 ```bash

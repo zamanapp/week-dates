@@ -1,5 +1,9 @@
 # Introduction
 
+::: warning
+As discussed in [tc39/proposal-temporal#2854](https://github.com/tc39/proposal-temporal/issues/2854) custom calendars support will be removed from Temporal, and this library will be updated accordingly. you can still use the [primitives](../primitives/introduction.md) to achieve the same functionality.
+:::
+
 On top of [`PlainWeekDate`](../classes/plain-week-date.md) class, `week-date` library offers custom calendar classes to enhance native Temporal Objects with week date capabilities beyond what the Temporal API offers.
 
 The library provides the following calendar classes:
